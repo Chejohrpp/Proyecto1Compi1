@@ -5,9 +5,9 @@
  */
 package backend;
 
+import backend.funcionesObj.UsuarioModel;
 import backend.objetos.LosErrores;
 import backend.objetos.Parametro;
-import backend.objetos.Usuario;
 import backend.reglasGram.LexerIndigo;
 import backend.reglasGram.ParserIndigo;
 import backend.reglasGram.Token;
@@ -64,16 +64,20 @@ public class Analizador {
     private List<LosErrores> errores;
     private List<Solicitud> solicitudes;
     //jsonObjects
-    private JSONArray arrayRequest = new JSONArray();
+    private JSONArray arrayRequest = new JSONArray();    
     private JSONArray arrayUser = new JSONArray();
+    private JSONArray arrayUserDelete = new JSONArray();
     private JSONObject jsonLogin = new JSONObject();
+    
+    //funciones
+    private UsuarioModel usuarioModel;
     
     
     public Analizador(String texto,JTextArea txtRespuesta){
         this.texto = texto;
         this.txtRespuesta = txtRespuesta;
         errores = new ArrayList<>();
-        solicitudes = new ArrayList<>();
+        solicitudes = new ArrayList<>();        
     }
     public void analizar(){
         Reader inputString = new StringReader(texto);
@@ -98,10 +102,10 @@ public class Analizador {
             System.out.println("error al lexer: " + e.getMessage());
         }
         
-    }
-   
+    }   
     private void revisarListaParametros(){
         String solicitud = null;
+        usuarioModel = new UsuarioModel(listaParametros,errores);
         for (int i = 0; i < listaParametros.size() ; i++) {    
             if (listaParametros.get(i).getCont() == null) {
                 try{
@@ -113,7 +117,7 @@ public class Analizador {
                     switch (solicitud) 
                     {
                         case "CREAR_USUARIO":{
-                            crearUser(i);
+                            usuarioModel.crearUser(i);
                             break;  
                         }
                         case "MODIFICAR_USUARIO":{
@@ -124,7 +128,7 @@ public class Analizador {
                             
                         }
                         case "LOGIN_USUARIO":{
-                            loginUser(i);
+                            usuarioModel.loginUser(i);
                             break;                            
                         }
                         case "NUEVO_FORMULARIO":{
@@ -184,101 +188,16 @@ public class Analizador {
         }
     }
     
-    private void crearUser(int i){
-        int j = 1;        
-        String user = null;
-        String pass = null;
-        String fecha = null;
-        while(true) {
-            if (listaParametros.size() >= i+j+1) {
-                if (listaParametros.get(i+j).getCont() != null) {
-                    if (listaParametros.get(i+j).getKey().getLexema().equals("USUARIO") && user == null) {
-                        user = listaParametros.get(i+j).getCont().getLexema();
-                    }else if(listaParametros.get(i+j).getKey().getLexema().equals("PASSWORD") && pass ==null){
-                        pass = listaParametros.get(i+j).getCont().getLexema();
-                    }else if(listaParametros.get(i+j).getKey().getLexema().equals("FECHA_CREACION") && fecha ==null){
-                        fecha = listaParametros.get(i+j).getCont().getLexema();
-                    }else{
-                        AddError(i+j);
-                    }
-                }else{
-                    break;                    
-                }
-            }else{
-                break;
-            }
-            j++;
-        }        
-        if (user != null && pass != null) {
-            
-            JSONObject newUser = new JSONObject();
-            newUser.put("USUARIO", user);
-            newUser.put("PASSWORD", pass);
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            if (fecha == null) {
-                Date date = Calendar.getInstance().getTime();                  
-                String strDate = dateFormat.format(date);
-                newUser.put("FECHA_CREACION", strDate);
-            }else{
-                try {                   
-                    String strDate = dateFormat.format(dateFormat.parse(fecha));
-                    newUser.put("FECHA_CREACION", strDate);
-                } catch (ParseException ex) {
-                    AddError(i);
-                }                
-            }            
-            arrayUser.put(newUser);
-        }else{
-            AddError(i);
-        }
-    }
-    
-    private void loginUser(int i){
-        int j = 1; 
-        boolean user = false;
-        boolean password = false;
-        String userName = null;
-        String pass = null;
-        while(true){
-            if (listaParametros.size() >= i+j+1) {
-                if (listaParametros.get(i+j).getCont() != null) {                                        
-                    if (listaParametros.get(i+j).getKey().getLexema().equals("USUARIO") && user ==false) {                                            
-                        userName = listaParametros.get(i+j).getCont().getLexema();
-                        user = true;
-                    }else if(listaParametros.get(i+j).getKey().getLexema().equals("PASSWORD") && password ==false){
-                        pass = listaParametros.get(i+j).getCont().getLexema();
-                        password = true;
-                    }else{
-                        AddError(i+j);
-                    }
-
-                }else{
-                    break;
-                }
-
-            }else{
-                break;
-            }
-            j++;
-        }
-        if (user && password) {                                
-            jsonLogin.put("USUARIO", userName);
-            jsonLogin.put("PASSWORD", pass);                                
-            cantLogin++;
-            if (cantLogin > 1) {
-                AddError(i);
-            }
-        }else{
-            AddError(i);
-        }
-    }
     
     
     private void conectarServidor() throws FileNotFoundException, IOException, InterruptedException {
         
         JSONObject jsonObject = new JSONObject();        
-        jsonObject.put("CREAR_USUARIO", arrayUser);
-        jsonObject.put("LOGIN_USUARIO", jsonLogin);
+        jsonObject.put("CREAR_USUARIO", usuarioModel.getArrayUser());
+        jsonObject.put("LOGIN_USUARIO", usuarioModel.getJsonLogin());
+        jsonObject.put("ELIMINAR_USUARIOS", arrayUserDelete);
+        jsonObject.put("MODIFICAR_USUARIOS", arrayUserDelete);
+        
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

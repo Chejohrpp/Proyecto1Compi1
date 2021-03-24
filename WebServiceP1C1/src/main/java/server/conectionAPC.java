@@ -94,7 +94,7 @@ public class conectionAPC extends HttpServlet {
             } 
 
             jsonResponse.put("LOGIN_USUARIO", jsonLoginVerificar);
-            if (userNameSesion == null) {
+            if (login == null) {
                 arrayRespuesta.put("Los parametros del inicio de " + UserName + " son invalidos");                
             }else{
                 arrayRespuesta.put("Se inicio sesion con el usuario: " + userNameSesion);
@@ -113,8 +113,7 @@ public class conectionAPC extends HttpServlet {
             String fecha_creacion = jsonObject1.getString("FECHA_CREACION");
             String fecha_mod = "null";
             Usuario newUser = new Usuario(user,pass,fecha_creacion,fecha_mod);
-            boolean seCreo = funUser.addUser(newUser);
-            
+            boolean seCreo = funUser.addUser(newUser);            
             if (seCreo) {
                 arrayRespuesta.put("Se creo el nuevo usuario: " + user);
                 almacenamiento.setUsuarios(funUser.getListaUsuarios());
@@ -127,10 +126,12 @@ public class conectionAPC extends HttpServlet {
     }
     
     private void EliminarUsers(JSONObject jsonObject, JSONObject jsonResponse){
+        JSONArray jsonArray = (JSONArray) jsonObject.get("ELIMINAR_USUARIOS");
         
     }
     
     private void ModUsers(JSONObject jsonObject, JSONObject jsonResponse){
+        JSONArray jsonArray = (JSONArray) jsonObject.get("MODIFICAR_USUARIOS");
         
     }
 

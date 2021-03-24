@@ -13,4 +13,10 @@ db.users{
 { "USER" : "admi7n23"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-01"},{ "FECHA_MODIFICACION" : "null"}]
  "USUARIO" : [
 { "USER" : "5admin2"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-23"},{ "FECHA_MODIFICACION" : "null"}]
+ "USUARIO" : [
+{ "USER" : "admin2t"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-23"},{ "FECHA_MODIFICACION" : "null"}]
+ "USUARIO" : [
+{ "USER" : "chejohrpp"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-01"},{ "FECHA_MODIFICACION" : "null"}]
+ "USUARIO" : [
+{ "USER" : "admin_100"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-01"},{ "FECHA_MODIFICACION" : "null"}]
 }
