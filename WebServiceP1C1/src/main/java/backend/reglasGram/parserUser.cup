@@ -1,0 +1,109 @@
+package backend.reglasGram;
+import backend.objetos.*;
+import java_cup.runtime.*;
+import backend.reglasGram.symUser.*;
+import java.util.ArrayList;
+import java.util.List;
+
+parser code {:
+
+	private List<Usuario> listaUsuarios;
+	private List<String> listaErrores;
+
+	public ParserUser(LexerUser lex){
+		super(lex);
+		listaUsuarios = new ArrayList<Usuario>();
+		listaErrores = new ArrayList<String>();
+	}
+	public void syntax_error(Symbol cur_token){
+			String nombreSimbolo = symbl_name_from_id(cur_token.sym);
+            Token token = (Token) cur_token.value;
+			String msgError =  "Error: ( "+ token.getLexema() +" ) -> {Linea: "+cur_token.left+", Columna: "+ cur_token.right +" }" ;
+			listaErrores.add(msgError);
+	}
+
+	public void report_fatal_error(String message, Object info){
+			String Elerror = "Error Irrecuperable: " + message + " -> {objeto: " + info + "}";
+			listaErrores.add(Elerror);	
+	}
+
+	public List getListaUsuarios(){
+		return listaUsuarios;
+	}
+	public List getListaErrores(){
+		return listaErrores;
+	}
+	private void llenarLista(Token user, Token pass, Token fechaCreacion, Token fechaModificacion){
+		String userName = user.getLexema();
+		String password = pass.getLexema();
+		String fechaC = fechaCreacion.getLexema();
+		String fechaM = fechaModificacion.getLexema();
+		if(fechaM.equals("null")){
+			fechaModificacion = null;
+		}
+		Usuario usuario = new Usuario(userName,password,fechaC,fechaM);
+		listaUsuarios.add(usuario);
+	}
+
+:}
+
+/*terminales*/
+terminal Token DB_USERS, LLAI, LLAD,DOS_PUNTOS,COMILLA,USUARIO, CORI, CORD,COMA,USER,PASS;
+terminal Token FECHA_CREACION,FECHA_MODIFICACION,STRING,ERROR;
+
+
+/* no terminales*/
+non terminal Token inicio,usuarios;
+non terminal Token usuario,usuario_comillas,contenido,user;
+non terminal Token user_comillas,pass,pass_comillas,fecha_creacion;
+non terminal Token fecha_creacion_comillas,fecha_modificacion,fecha_modificacion_comillas,dato;
+
+/*gramatica*/
+
+
+inicio ::= DB_USERS LLAI usuarios LLAD
+		|error 
+		;
+
+usuarios ::= 	usuarios usuario
+				|usuario
+				 ;
+
+usuario ::= usuario_comillas DOS_PUNTOS CORI contenido CORD
+			|error contenido ;
+
+usuario_comillas ::= 	COMILLA USUARIO COMILLA
+						|error ;
+
+contenido ::= 	user:u COMA pass:p COMA fecha_creacion:fc COMA fecha_modificacion:fm 	{:llenarLista(u,p,fc,fm);:}
+				;
+
+user ::= LLAI user_comillas DOS_PUNTOS dato: d LLAD		{:RESULT = d;:}
+		|error ;
+
+user_comillas ::= 	COMILLA USER COMILLA
+					|error ;
+
+pass ::= LLAI pass_comillas DOS_PUNTOS dato: d LLAD		{:RESULT = d;:}
+		|error ;
+
+pass_comillas ::= 	COMILLA PASS COMILLA
+					|error ;
+
+fecha_creacion ::= 	LLAI fecha_creacion_comillas DOS_PUNTOS dato: d LLAD		{:RESULT = d;:}
+					|error ;
+
+fecha_creacion_comillas ::= 	COMILLA FECHA_CREACION COMILLA
+								|error ;
+
+fecha_modificacion ::= 	LLAI fecha_modificacion_comillas DOS_PUNTOS dato: d LLAD		{:RESULT = d;:}
+						|error ;
+
+fecha_modificacion_comillas ::= 	COMILLA FECHA_MODIFICACION COMILLA
+									|error ;
+
+dato ::=  	COMILLA STRING: s COMILLA					{:RESULT = s;:}
+			|error ;
+
+
+

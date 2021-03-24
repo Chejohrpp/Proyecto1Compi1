@@ -1,0 +1,94 @@
+/*codigo de usuario*/
+package com.proyecto1.reglas.codigo;
+import java_cup.runtime.*;
+import static com.reglas.codigo.symSqForm.*;
+
+parser code {:
+
+	public ParserSqForm(LexerSqForm lex){
+		super(lex);
+	}
+:}
+
+/*terminales*/
+terminal token COMILLA,SELECT,TO,FORM,GUION,MAQ,ID_FORM,NOMBRE,CORI,CORD;
+terminal token COMA,WHERE,MENQ,IGUAL,AND,OR,NOT,NUM,STRING;
+
+/*no terminales*/
+non terminal inicio,flecha,nombre_form,nombre_forms,nombre,campos,camposs,nombres_campos,clausulas,restrigciones,restrigcion,operador_relacional,operador_logico,comparacion,string;
+
+
+/*precedencia*/
+
+
+/*gramatica*/
+
+start with inicio;
+
+inicio ::=	COMILLA SELECT TO FORM flecha nombre_form 
+			|error
+			;
+
+flecha ::=	GUION MAQ
+			|error
+			;
+
+nombre_form ::= nombre nombre_forms
+				|error
+				;
+
+nombre_forms ::= 	campos clausulas COMILLA
+					|campos	COMILLA
+					;
+
+nombre ::= 	ID_FORM
+			|NOMBRE
+			;
+
+campos ::= 	CORI camposs
+			|error
+			;
+
+camposs ::= nombres_campos CORD
+			|CORD
+			;
+
+nombres_campos ::= 	nombres_campos COMA nombre_Campos
+					|NOMBRE
+					|error
+					;
+
+clausulas ::= 	WHERE CORI restrigciones CORD
+				|error
+				;
+
+restrigciones ::= 	restrigciones operador_logico restrigciones
+					|restrigcion
+					|error
+					;
+
+restrigcion ::= nombre operador_relacional comparacion
+				|error
+				;
+
+operador_relacional ::= 	MENQ
+							|MAQ
+							|MENQ MAQ
+							|IGUAL
+							|MAQ IGUAL
+							|MENQ IGUAL
+							;
+
+operador_logico ::= AND
+					|OR
+					|NOT
+					;
+
+comparacion ::= NUM
+				|string
+				|error
+				;
+
+string ::= COMILLA STRING COMILLA
+			|error
+			;

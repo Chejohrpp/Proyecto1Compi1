@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'tituloWeb';
+    font-size: 25px;
+    src: url("../Resource/font/BebasNeue.otf") format("opentype");
+}
+*{
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+nav{
+    background: black;
+    height: 80px;
+    width: 100%;
+}
+img.logo{
+    color: red;
+    font-family: 'tituloWeb';
+    font-size: 55px;
+    line-height: 80px;
+    padding: 0 60px;
+    font-weight: bold;
+}
+
+nav ul{
+    float: right;
+    margin-right: 20px;
+}
+nav ul li{
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+nav ul li a{
+  color: white;
+  font-family: Helvetica;
+  font-size: 16px;
+  padding: 7px 13px;
+  cursor: pointer;
+}
+a:hover{
+  color: gray;
+  transition: .5s;
+}
+
+

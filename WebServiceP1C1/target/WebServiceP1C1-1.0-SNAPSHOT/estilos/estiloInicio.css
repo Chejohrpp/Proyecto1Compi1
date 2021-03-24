@@ -1,0 +1,53 @@
+#Contenido{
+    margin: 40px;
+    padding-left: 25%;
+}
+
+.caja {
+    width: 800px;
+    height: 500px;
+    background: white;
+    color: black;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 80px 40px;
+}
+h2{
+    text-align: center;
+    font-size: 40px;
+    padding: 25px 0;
+}
+input[type="text"]{
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid    ;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-left: 1px solid;
+    border-color: skyblue;
+    border-radius: 4px;
+    outline: none;
+    height: 40px;
+    font-size: 26px;
+}
+input[type="submit"]{
+    width: 50%;
+    margin-bottom: 20px;
+    margin-left: 25%;
+    border: none;
+    outline: none;
+    background: #E82B14;
+    border-radius: 4px;
+    color: white;
+    font-size: 20px;
+    padding: 8px 10px;
+    cursor:pointer;
+}
+ input[type="submit"]:hover{
+    cursor: pointer;
+    background:  #FF1B00;
+    transition: .5s;
+}

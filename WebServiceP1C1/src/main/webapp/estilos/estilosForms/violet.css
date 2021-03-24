@@ -1,0 +1,19 @@
+#Contenido{
+    margin: 40px;
+    padding-left: 25%;
+}
+
+.caja {
+    width: 800px;
+    height: 500px;
+    background: white;
+    color: black;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 80px 40px;
+}
+
+

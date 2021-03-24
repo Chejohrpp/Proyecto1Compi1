@@ -1,0 +1,16 @@
+db.users{
+ "USUARIO" : [
+{ "USER" : "admin"},{ "PASS" : "admin"},{ "FECHA_CREACION" : "2021-03-20"},{ "FECHA_MODIFICACION" : "null"}]
+ "USUARIO" : [
+{ "USER" : "admin1"},{ "PASS" : "admin"},{ "FECHA_CREACION" : "2021-03-20"},{ "FECHA_MODIFICACION" : "2021-03-20"}]
+ "USUARIO" : [
+{ "USER" : "admin2"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-23"},{ "FECHA_MODIFICACION" : "null"}]
+ "USUARIO" : [
+{ "USER" : "admin23"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-01"},{ "FECHA_MODIFICACION" : "null"}]
+ "USUARIO" : [
+{ "USER" : "admin273"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-22"},{ "FECHA_MODIFICACION" : "null"}]
+ "USUARIO" : [
+{ "USER" : "admi7n23"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-01"},{ "FECHA_MODIFICACION" : "null"}]
+ "USUARIO" : [
+{ "USER" : "5admin2"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-23"},{ "FECHA_MODIFICACION" : "null"}]
+}

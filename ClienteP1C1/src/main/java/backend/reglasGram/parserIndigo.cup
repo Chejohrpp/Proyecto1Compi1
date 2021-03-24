@@ -1,0 +1,307 @@
+/*codigo de usuario*/
+package backend.reglasGram;
+import backend.objetos.*;
+import java_cup.runtime.*;
+import backend.reglasGram.symIndigo.*;
+import java.util.ArrayList;
+import java.util.List;
+
+parser code {:
+
+	private List<Parametro> listaParametros;
+	private List<LosErrores> listaErrores;
+
+	public ParserIndigo(LexerIndigo lex){
+		super(lex);
+		listaParametros = new ArrayList<Parametro>();
+		listaErrores = new ArrayList<LosErrores>();
+	}
+	public void syntax_error(Symbol cur_token){
+			String nombreSimbolo = symbl_name_from_id(cur_token.sym);
+            Token token = (Token) cur_token.value;
+			String msgError =  "Error: ( "+ token.getLexema() +" ) -> {Linea: "+cur_token.left+", Columna: "+ cur_token.right +" }" ;
+			listaErrores.add(new LosErrores(msgError));
+	}
+
+	public void report_fatal_error(String message, Object info){
+			String Elerror = "Error Irrecuperable: " + message + " -> {objeto: " + info + "}";
+			listaErrores.add(new LosErrores(Elerror));	
+	}
+
+	public List getListaParametros(){
+		return listaParametros;
+	}
+	public List getListaErrores(){
+		return listaErrores;
+	}
+	//metodo sin usar
+	private void listaTokens(List expectacions){
+		for(Object expectacion : expectacions){
+                    String stringToken = expectacion.toString();
+                    int simToken = Integer.parseInt(stringToken);
+			System.out.println("Lista de Tokens: "+ symbl_name_from_id(simToken) );
+		}
+	}
+
+	protected int error_sync_size(){
+		return 1;
+	}
+:}
+
+/*terminales*/
+terminal Token MENQ,ADMIRACION,INI_SOLICITUDES,MAQ;
+terminal Token FIN_SOLICITUDES,INI_SOLICITUD, DOS_PUNTOS, CONSULTAR_DATOS,FIN_SOLICITUD;
+terminal Token CREAR_USUARIO, MODIFICAR_USUARIO, ELIMINAR_USUARIO, LOGIN_USUARIO;
+terminal Token NUEVO_FORMULARIO, ELIMINAR_FORMULARIO;
+terminal Token MODIFICAR_FORMULARIO, AGREGAR_COMPONENTE, ELIMINAR_COMPONENTE, MODIFICAR_COMPONENTE;
+terminal Token CREDENCIALES_USUARIO, PARAMETROS_FORMULARIO,PARAMETROS_COMPONENTE;
+terminal Token COMILLAS, STRING,CONSULTAS, LLAI, LLAD, CORI, CORD, COMA,ID;
+terminal Token CONT_ID, STRING_SPACE,TITULO;
+terminal Token FORMULARIO,TEXTO_VISIBLE,OPCIONES,CONT_OPCIONES,URL,CONT_URL, CONSULTA_N, CONT_CONSULTA;
+
+
+/*no terminales*/
+non terminal Token inicio,sig_inicio,solicitudes,fin_solicitudes;
+non terminal Token solicitud, sig_solicitud,fin_solicitud, nombre_solicitud_usuario,nombre_solicitud_formulario,nombre_solicitud_componente;
+non terminal Token contenido_usuario,contenido_formulario,contenido_componente, contenido_consulta;
+non terminal Token bloque_parametro_comillas_credenciales_usuario,bloque_parametro_comillas_parametros_formulario;
+non terminal Token bloque_parametro_comillas_parametros_componente;
+non terminal Token paquetes_usuario,paquetes_formulario,paquetes_componente, paquetes_consulta, bloques_usuario,bloques_formulario;
+non terminal Token bloques_componente, bloques_consulta;
+non terminal Token bloque_usuario, bloque_formulario, bloque_componente, bloque_consulta;
+non terminal Token parametros_usuario,parametros_formulario,parametros_componente, parametros_consulta;
+non terminal Token parametro_usuario,parametro_formulario,parametro_componente;
+non terminal Token datos,ids,cont_ids,titulos,cont_string_spaces,formulario, texto_visible, opciones, cont_opciones, url, cont_url;
+non terminal Token parametro_consulta, consulta_n, con_consulta;
+
+
+/*precedencia*/
+
+
+/*gramatica*/
+
+inicio ::= 	MENQ ADMIRACION sig_inicio
+			|error sig_inicio
+			;
+sig_inicio ::= 	INI_SOLICITUDES MAQ solicitudes fin_solicitudes
+				|INI_SOLICITUD DOS_PUNTOS COMILLAS sig_solicitud
+				|error 
+				;
+
+solicitudes ::= solicitudes solicitud
+				|solicitud
+				|error sig_solicitud
+				;
+
+fin_solicitudes ::= MENQ ADMIRACION FIN_SOLICITUDES MAQ
+					|error
+					;
+
+solicitud ::= 	MENQ ADMIRACION INI_SOLICITUD DOS_PUNTOS COMILLAS sig_solicitud
+				;
+sig_solicitud ::= 	 nombre_solicitud_usuario COMILLAS MAQ contenido_usuario fin_solicitud
+					|nombre_solicitud_formulario COMILLAS MAQ contenido_formulario fin_solicitud
+					|nombre_solicitud_componente COMILLAS MAQ contenido_componente fin_solicitud
+					|CONSULTAR_DATOS:token COMILLAS MAQ contenido_consulta fin_solicitud			{:listaParametros.add(new Parametro(token,null));:}
+					|error fin_solicitud
+					;
+
+fin_solicitud ::= 	MENQ FIN_SOLICITUD ADMIRACION MAQ
+					|error
+					;
+
+
+nombre_solicitud_usuario ::= 	CREAR_USUARIO: token			{:listaParametros.add(new Parametro(token,null));:}
+								|MODIFICAR_USUARIO:token		{:listaParametros.add(new Parametro(token,null));:}
+								|ELIMINAR_USUARIO:token			{:listaParametros.add(new Parametro(token,null));:}
+								|LOGIN_USUARIO:token			{:listaParametros.add(new Parametro(token,null));:}
+								;
+
+nombre_solicitud_formulario ::=		NUEVO_FORMULARIO: token  		{:listaParametros.add(new Parametro(token,null));:}
+									|ELIMINAR_FORMULARIO: token		{:listaParametros.add(new Parametro(token,null));:}
+									|MODIFICAR_FORMULARIO: token	{:listaParametros.add(new Parametro(token,null));:}
+									;
+
+
+nombre_solicitud_componente ::=		AGREGAR_COMPONENTE: token		  		{:listaParametros.add(new Parametro(token,null));:}
+									|ELIMINAR_COMPONENTE: token				{:listaParametros.add(new Parametro(token,null));:}
+									|MODIFICAR_COMPONENTE: token			{:listaParametros.add(new Parametro(token,null));:}
+									;
+
+
+
+contenido_usuario ::= 	LLAI bloque_parametro_comillas_credenciales_usuario DOS_PUNTOS paquetes_usuario LLAD
+						|error paquetes_usuario LLAD
+						;
+
+contenido_formulario ::= 	LLAI bloque_parametro_comillas_parametros_formulario DOS_PUNTOS paquetes_formulario LLAD
+							|error
+							;
+
+contenido_componente ::= 	LLAI bloque_parametro_comillas_parametros_componente DOS_PUNTOS paquetes_componente LLAD
+							|error
+							;
+
+
+contenido_consulta ::= LLAI COMILLAS CONSULTAS COMILLAS DOS_PUNTOS paquetes_consulta LLAD
+						|error
+						;
+
+
+bloque_parametro_comillas_credenciales_usuario ::=	COMILLAS CREDENCIALES_USUARIO COMILLAS
+													|error
+													;
+
+bloque_parametro_comillas_parametros_formulario ::=	COMILLAS PARAMETROS_FORMULARIO COMILLAS
+								|error
+								;
+
+bloque_parametro_comillas_parametros_componente ::=	COMILLAS PARAMETROS_COMPONENTE COMILLAS
+								|error
+								;
+
+
+
+paquetes_usuario ::= 	CORI bloques_usuario CORD
+						|error
+						;
+
+paquetes_formulario ::= 	CORI bloques_formulario CORD
+							|error
+							;
+
+paquetes_componente ::= 	CORI bloques_componente CORD
+							|error
+							;
+
+paquetes_consulta ::= CORI bloques_consulta CORD
+					|error
+					;
+
+
+
+bloques_usuario ::= bloques_usuario COMA bloque_usuario
+				|bloque_usuario
+				|error
+				;
+
+bloques_formulario ::= 	bloques_formulario COMA bloque_formulario
+						|bloque_formulario
+						|error
+						;
+
+bloques_componente ::= bloques_componente COMA bloque_componente
+				|bloque_componente
+				|error
+				;
+
+bloques_consulta ::= bloques_consulta COMA bloque_consulta
+			|bloque_consulta
+			|error
+			;
+
+
+
+bloque_usuario ::= 	LLAI parametros_usuario LLAD				
+					;
+
+bloque_formulario ::= 	LLAI parametros_formulario LLAD			
+						;
+
+bloque_componente ::= 	LLAI parametros_componente LLAD			
+					;
+
+bloque_consulta ::= 	LLAI parametros_consulta LLAD	  		
+						;
+
+
+
+parametros_usuario ::= 	parametros_usuario COMA parametro_usuario
+							|parametro_usuario
+							|error
+							;
+
+parametros_formulario ::= 	parametros_formulario COMA parametro_formulario
+							|parametro_formulario
+							|error
+							;
+
+parametros_componente ::= 	parametros_componente COMA parametro_componente
+							|parametro_componente
+							|error
+							;
+
+
+parametros_consulta ::= 	parametros_consulta COMA parametro_consulta
+							|parametro_consulta
+							|error
+							;
+
+
+parametro_usuario ::=	datos:key DOS_PUNTOS datos:cont 								{:listaParametros.add(new Parametro(key,cont));:}
+						;
+
+
+parametro_formulario ::= 	datos:key DOS_PUNTOS datos:cont 							{:listaParametros.add(new Parametro(key,cont));:}
+							|ids:key DOS_PUNTOS cont_ids:cont							{:listaParametros.add(new Parametro(key,cont));:}
+							|titulos:key DOS_PUNTOS cont_string_spaces:cont   			{:listaParametros.add(new Parametro(key,cont));:}
+							;
+
+parametro_componente ::= 	datos:key DOS_PUNTOS datos:cont 										{:listaParametros.add(new Parametro(key,cont));:}
+							|ids:key DOS_PUNTOS cont_ids:cont										{:listaParametros.add(new Parametro(key,cont));:}
+							|formulario:key DOS_PUNTOS cont_ids:cont								{:listaParametros.add(new Parametro(key,cont));:}
+							|texto_visible:key DOS_PUNTOS cont_string_spaces:cont   				{:listaParametros.add(new Parametro(key,cont));:}
+							|opciones:key DOS_PUNTOS cont_opciones:cont	 							{:listaParametros.add(new Parametro(key,cont));:}	
+							|url: key DOS_PUNTOS cont_url:cont 										{:listaParametros.add(new Parametro(key,cont));:}
+							;
+
+datos::=		COMILLAS STRING:s COMILLAS			{:RESULT = s; :}
+				|cont_ids : ii 							{:RESULT = ii; :}
+				|error
+				;
+
+ids ::= COMILLAS ID:ii COMILLAS						{:RESULT = ii; :}
+
+		;
+
+cont_ids ::= COMILLAS CONT_ID:ci COMILLAS						{:RESULT = ci; :}
+			;
+
+titulos ::= COMILLAS TITULO:ti COMILLAS							{:RESULT = ti; :}
+			;
+
+cont_string_spaces ::= 	COMILLAS STRING_SPACE:ss COMILLAS					{:RESULT = ss; :}
+						|datos:s 											{:RESULT = s; :}
+						;
+
+formulario ::= 			COMILLAS FORMULARIO:f COMILLAS						{:RESULT = f; :}
+						;
+
+texto_visible ::= 		COMILLAS TEXTO_VISIBLE:tv COMILLAS					{:RESULT = tv; :}
+						;
+
+opciones ::=	 COMILLAS OPCIONES:o COMILLAS								{:RESULT = o; :}							
+				
+				;
+cont_opciones ::=	COMILLAS CONT_OPCIONES:co COMILLAS						{:RESULT = co; :}
+					|cont_string_spaces:ss									{:RESULT = ss; :}		
+					;
+
+url ::= 				COMILLAS URL:u COMILLAS								{:RESULT = u; :}			
+					
+						;
+cont_url ::= 	COMILLAS CONT_URL:u COMILLAS								{:RESULT = u; :}			
+				;
+
+
+
+parametro_consulta ::= 	consulta_n:key DOS_PUNTOS con_consulta:cont  	{:listaParametros.add(new Parametro(key,cont));:}
+						;
+
+consulta_n ::= 	COMILLAS CONSULTA_N:cn COMILLAS				{:RESULT = cn; :}
+				|error
+				;
+
+con_consulta ::= 	COMILLAS CONT_CONSULTA:cc COMILLAS		{:RESULT = cc; :}
+					|error
+					;
