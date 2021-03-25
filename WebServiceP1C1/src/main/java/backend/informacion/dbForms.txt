@@ -1,0 +1,52 @@
+db.formularios(
+"FORMULARIO" : [
+"ID_FORMULARIO" : "$form1",
+"TITULO" : "Modificado para encuesta 1",
+"NOMBRE" : "formulario_encuesta_1_v2",
+"TEMA" : "violet",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-25",
+"ESTRUCTURA" : (
+{
+"ID" : "$id1",
+"NOMBRE_CAMPO" : "$id1",
+"CLASE" : "$id1",
+"INDICE" : "$id1",
+"TEXTO_VISIBLE" : "$id1",
+"ALINEACION" : "$id1",
+"REQUERIDO" : "$id1",
+"OPCIONES" : "$id1",
+"FILAS" : "$id1",
+"COLUMNAS" : "$id1",
+"URL" : "null"
+}
+{
+"ID" : "$id2",
+"NOMBRE_CAMPO" : "$id1",
+"CLASE" : "$id1",
+"INDICE" : "$id1",
+"TEXTO_VISIBLE" : "$id1",
+"ALINEACION" : "$id1",
+"REQUERIDO" : "$id1",
+"OPCIONES" : "$id1",
+"FILAS" : "$id1",
+"COLUMNAS" : "$id1",
+"URL" : "null"
+}
+)
+DATOS_RECOPILADOS : (
+)
+]
+"FORMULARIO" : [
+"ID_FORMULARIO" : "$form2",
+"TITULO" : "Modificado para encuesta 1",
+"NOMBRE" : "formulario",
+"TEMA" : "dark",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-25",
+"ESTRUCTURA" : (
+)
+DATOS_RECOPILADOS : (
+)
+]
+)

@@ -1,0 +1,197 @@
+package backend.reglasGram;
+import backend.objetos.*;
+import java_cup.runtime.*;
+import backend.reglasGram.symForm.*;
+import java.util.ArrayList;
+import java.util.List;
+
+
+parser code {:
+
+	private List<Formulario> listaFormularios;
+	private List<String> listaErrores;
+	private List<Componente> listaComponentes;
+	private List<DatoRegistros> listaDatos;
+	private List<String> listaRegistros;
+
+	public ParserForm(LexerForm lex){
+		super(lex);
+		listaFormularios = new ArrayList<Formulario>();
+		listaErrores = new ArrayList<String>();
+		listaComponentes = new ArrayList<>();
+		listaDatos = new ArrayList<>();
+		listaRegistros = new ArrayList<>();
+	}
+	public void syntax_error(Symbol cur_token){
+			String nombreSimbolo = symbl_name_from_id(cur_token.sym);
+            Token token = (Token) cur_token.value;
+			String msgError =  "Error: ( "+ token.getLexema() +" ) -> {Linea: "+cur_token.left+", Columna: "+ cur_token.right +" }" ;
+			listaErrores.add(msgError);
+	}
+
+	public void report_fatal_error(String message, Object info){
+			String Elerror = "Error Irrecuperable: " + message + " -> {objeto: " + info + "}";
+			listaErrores.add(Elerror);	
+	}
+
+	public List getListaFormularios(){
+		return listaFormularios;
+	}
+	public List getListaErrores(){
+		return listaErrores;
+	}
+	private void llenarLista(Token i, Token t, Token n, Token te,Token uc,Token fc){
+		String id = i.getLexema();
+		String titulo = t.getLexema();
+		String nombre = n.getLexema();
+		String tema = te.getLexema();
+		String userCreacion = uc.getLexema();
+		String fechaCreacion = fc.getLexema();
+		Formulario form =  new Formulario(id,titulo,nombre,tema,userCreacion,fechaCreacion);
+		form.setListaComponentes(listaComponentes);
+		form.setListaDatos(listaDatos);
+		listaFormularios.add(form);
+	}
+	private void addComponent(Token ic,Token nc,Token c,Token i,Token tv,Token a,Token r,Token op,Token f,Token col1,Token u){
+		String id = ic.getLexema();
+		String nombreCampo = nc.getLexema();
+		String clase = c.getLexema();
+		String indice = i.getLexema();
+		String textoVisible = tv.getLexema();
+		String alineacion = a.getLexema();
+		String re = r.getLexema();
+		String ops = op.getLexema();
+		String fil = f.getLexema();
+		String col = col1.getLexema();
+		String url = u.getLexema();
+		Componente comp = new Componente(id,nombreCampo,clase,indice,textoVisible,alineacion,re,ops,fil,col,url);
+		listaComponentes.add(comp);
+	}
+	private void addDatos(Token ncr){
+		String nombreCampo = ncr.getLexema();
+		DatoRegistros datos = new DatoRegistros(nombreCampo);
+		datos.setListaRegistros(listaRegistros);
+		listaDatos.add(datos);
+	}
+
+:}
+
+/*terminales*/
+terminal Token DB_FORMULARIOS, PAI,PAD, FORMULARIO, DOS_PUNTOS, CORI, CORD,COMA;
+terminal Token COMILLA,ID_FORM,TITULO,NOMBRE,TEMA,USER_CREACION,FECHA_CREACION,ESTRUCTURA;
+terminal Token LLAI,LLAD, ID_COMP,NOMBRE_CAMPO, CLASE,INDICE,TEXTO_VISIBLE,ALINEACION,REQUERIDO,OPCIONES,FILAS,COLUMNAS,URL;
+terminal Token DATOS_RECOPILADOS,REGISTRO,STRING,ERROR;
+
+/*no terminales*/
+non terminal Token inicio,formularios,formulario,contenido_formulario;
+non terminal Token id_form,titulo,nombre,tema;
+non terminal Token user_creacion,fecha_creacion,estructura,sig_estructura,componentes,componente,valores_componente,id_comp,nombre_campo;
+non terminal Token clase,indice,texto_visible,alienacion,requerido,opciones,filas,columnas,url,datos_recopilados;
+non terminal Token sig_datos_recopilados,registros,registro,bloque_registro;
+non terminal Token nombre_campo_registro,cont_registros,cont_registro,dato;
+
+/*gramatica*/
+
+inicio ::= 	DB_FORMULARIOS PAI formularios PAD
+			|error
+			;
+
+formularios ::= formularios formulario
+				|formulario
+				|error
+				;
+
+formulario ::= COMILLA FORMULARIO COMILLA DOS_PUNTOS CORI contenido_formulario CORD
+				;
+
+contenido_formulario ::= id_form:i COMA titulo:t COMA nombre:n COMA tema:te COMA user_creacion:uc COMA fecha_creacion:fc COMA estructura datos_recopilados														{:llenarLista(i,t,n,te,uc,fc);
+																		listaComponentes = new ArrayList<>();
+																		listaDatos = new ArrayList<>();  :}
+						
+						;
+
+id_form ::= COMILLA ID_FORM COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+		|error ;
+titulo ::= COMILLA TITULO COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+		|error ;
+nombre ::= COMILLA NOMBRE COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+		|error ;
+tema ::= COMILLA TEMA COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+		|error ;
+user_creacion ::= COMILLA USER_CREACION COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+		|error ;
+fecha_creacion ::= COMILLA FECHA_CREACION COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+		|error ;
+
+estructura ::= 	COMILLA ESTRUCTURA COMILLA DOS_PUNTOS PAI sig_estructura
+				|error ;
+
+sig_estructura ::= componentes PAD
+					|PAD
+					;
+
+componentes ::= componentes componente
+				|componente
+				;
+
+componente ::= LLAI valores_componente LLAD
+				|error ;
+
+valores_componente ::= id_comp:ic COMA nombre_campo:nc COMA clase:c COMA indice:i COMA texto_visible:tv COMA alienacion:a COMA requerido:r COMA opciones:op COMA filas:f COMA columnas:col COMA url:u	{:addComponent(ic,nc,c,i,tv,a,r,op,f,col,u);:}
+						;
+
+
+id_comp ::= COMILLA ID_COMP COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+nombre_campo ::= COMILLA NOMBRE_CAMPO COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+clase ::= COMILLA CLASE COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+indice ::= COMILLA INDICE COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+texto_visible ::= COMILLA TEXTO_VISIBLE COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+alienacion ::= COMILLA ALINEACION COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+requerido ::= COMILLA REQUERIDO COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+opciones ::= COMILLA OPCIONES COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+filas ::= COMILLA FILAS COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+columnas ::= COMILLA COLUMNAS COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+url ::= COMILLA URL COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+			|error ;
+
+datos_recopilados ::=  DATOS_RECOPILADOS DOS_PUNTOS	PAI sig_datos_recopilados
+						|error ;
+
+sig_datos_recopilados ::= registros PAD
+							|PAD
+							|error
+							;
+
+registros ::= 	registros registro
+				|registro
+				;
+
+registro ::= LLAI bloque_registro LLAD
+			|error ;
+
+bloque_registro ::= nombre_campo_registro:ncr COMA cont_registros	{:addDatos(ncr); listaRegistros = new ArrayList<>(); :}
+					|error ;
+
+nombre_campo_registro ::= 	COMILLA NOMBRE_CAMPO COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
+							|error ;
+
+cont_registros ::= cont_registros cont_registro
+					|cont_registro
+					;
+
+cont_registro ::= 	COMILLA REGISTRO COMILLA DOS_PUNTOS dato:d {:listaRegistros.add(d.getLexema());:}
+					|error ;
+
+
+ dato ::=  	COMILLA STRING: s COMILLA					{:RESULT = s;:}
+			|error ;

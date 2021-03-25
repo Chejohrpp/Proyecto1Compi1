@@ -169,7 +169,7 @@ public class FormularioModel {
             jsonObject.put("ID", id);
             jsonObject.put("TITULO", verificarNull(titulo));
             jsonObject.put("NOMBRE", verificarNull(nombre));
-            jsonObject.put("TEMA", verificarNull(verificarTema(tema,i,"null")));
+            jsonObject.put("TEMA",verificarTemaNull(tema,i));
             arrayFormsMod.put(jsonObject);            
         }else{
             AddError(i);
@@ -180,6 +180,17 @@ public class FormularioModel {
             return "null";
         }
         return texto;
+    }
+    private String verificarTemaNull(String tema, int i){
+        if (tema == null) {
+            return "null";
+        }        
+        if (!tema.equals("violet") && !tema.equals("evergarden") && !tema.equals("dark")) {
+            AddError(i);
+            errores.add(new LosErrores("error de la solicitud anterior:  ^ El TEMA escrito no es valido"));
+            return tema;
+        }
+        return tema;
     }
     
     private String fecha(String fecha, int i){

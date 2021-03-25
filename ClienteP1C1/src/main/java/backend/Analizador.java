@@ -207,6 +207,7 @@ public class Analizador {
     private void conectarServidor() throws FileNotFoundException, IOException, InterruptedException {
         
         JSONObject jsonObject = new JSONObject();        
+        jsonObject.put("USER_NAME_SESION", verificarNull(userNameSesion));
         jsonObject.put("CREAR_USUARIO", usuarioModel.getArrayUser());
         jsonObject.put("LOGIN_USUARIO", usuarioModel.getJsonLogin());
         jsonObject.put("ELIMINAR_USUARIOS", usuarioModel.getArrayUserDelete());
@@ -256,6 +257,12 @@ public class Analizador {
     
     public String getUserNameSesion(){
         return userNameSesion;
+    }
+    private String verificarNull(String s){
+        if (s == null) {
+            return "null";
+        }
+        return s;
     }
     
     private void AddError(int index){

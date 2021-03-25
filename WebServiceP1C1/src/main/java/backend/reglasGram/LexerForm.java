@@ -5,14 +5,14 @@
 package backend.reglasGram;
 import backend.objetos.*;
 import java_cup.runtime.*;
-import static backend.reglasGram.symUser.*;
+import static backend.reglasGram.symForm.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
-public class LexerUser implements java_cup.runtime.Scanner {
+public class LexerForm implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -693,7 +693,7 @@ public class LexerUser implements java_cup.runtime.Scanner {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public LexerUser(java.io.Reader in) {
+  public LexerForm(java.io.Reader in) {
     this.zzReader = in;
   }
 

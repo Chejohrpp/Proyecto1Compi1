@@ -6,8 +6,8 @@
 package server;
 
 import backend.Almacenamiento;
-import backend.creacion.UsuarioFunctions;
-import backend.objetos.Usuario;
+import backend.creacion.*;
+import backend.objetos.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,6 +34,7 @@ public class conectionAPC extends HttpServlet {
     private String userNameSesion=null;
     private Almacenamiento almacenamiento = new Almacenamiento();
     private UsuarioFunctions funUser = new UsuarioFunctions(almacenamiento.getUsuarios()); 
+    private FormularioFunctions funForm = new FormularioFunctions(almacenamiento.getForms());
     private JSONArray arrayRespuesta =  new JSONArray();
     private int cantRespuestas = 0;
 
@@ -48,6 +49,9 @@ public class conectionAPC extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        almacenamiento = new Almacenamiento();
+        funUser = new UsuarioFunctions(almacenamiento.getUsuarios()); 
+        funForm = new FormularioFunctions(almacenamiento.getForms());
         JSONObject jsonResponse = new JSONObject();
          arrayRespuesta =  new JSONArray();
        //lee el archivo string de la aplicacion cliente 
@@ -62,12 +66,14 @@ public class conectionAPC extends HttpServlet {
         //leemos el archivo json enviado desde el cliente       
         try {            
             JSONObject jsonObject =  new JSONObject(jb.toString());
+            modUserName(jsonObject);
             verificarLogin(jsonObject,jsonResponse);  
             addUsers(jsonObject,jsonResponse); 
             EliminarUsers(jsonObject);
             ModUsers(jsonObject);  
-            
-            
+            AddForms(jsonObject);
+            DeleteForms(jsonObject);
+            ModForms(jsonObject);
             jsonResponse.put("RESPUESTAS", arrayRespuesta);
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
@@ -76,6 +82,18 @@ public class conectionAPC extends HttpServlet {
         } catch (JSONException e) {
             System.out.println("error en el json: " + e.getMessage());
         }       
+    }
+    private void modUserName(JSONObject jsonObject){
+        try{
+            String userName = jsonObject.getString("USER_NAME_SESION");
+            if (userName.equals("null")) {
+                userNameSesion = null;
+            }else{
+                userNameSesion = userName;
+            }
+        }catch(Exception e){
+            
+        }
     }
     
     private void verificarLogin(JSONObject jsonObject, JSONObject jsonResponse){
@@ -170,6 +188,95 @@ public class conectionAPC extends HttpServlet {
         
     }
 
+    private boolean AddForms(JSONObject jsonObject){                
+        try{
+            JSONArray jsonArray = (JSONArray) jsonObject.get("NUEVO_FORMS");
+            if (userNameSesion == null && jsonArray.length() > 0) {
+                 arrayRespuesta.put("Error: No se puede crear los formularios, no hay una sesion iniciada");
+                return false;
+            }
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonForm = jsonArray.getJSONObject(i);
+                String id = jsonForm.getString("ID");
+                String titulo = jsonForm.getString("TITULO");
+                String nombre = jsonForm.getString("NOMBRE");
+                String tema = jsonForm.getString("TEMA");
+                String fecha = jsonForm.getString("FECHA_CREACION");
+                String user = jsonForm.getString("USUARIO_CREACION");
+                Formulario form = new Formulario(id,titulo,nombre,tema,VerUserName(user),fecha);
+                boolean add = funForm.addForm(form);
+                if (add) {
+                    arrayRespuesta.put("Se creo el formulario: " + id);
+                    almacenamiento.setForms(funForm.getListaForms());
+                }else{
+                    arrayRespuesta.put("Error, el id formulario : " + id + " esta repetido");
+                }                
+            }
+        }catch(Exception e){
+            System.out.println("error en addForms : " + e.getMessage());
+        }
+        
+        return true;
+    }
+    private String VerUserName(String s){
+        if (s.equals("null")) {
+            return userNameSesion;
+        }
+        return s;
+    }
+    private boolean DeleteForms(JSONObject jsonObject){
+        try{
+            JSONArray jsonArray = (JSONArray) jsonObject.get("ELIMINAR_FORMS");
+            if (userNameSesion == null && jsonArray.length() > 0) {
+                 arrayRespuesta.put("Error: No se pueden eliminar formularios, no hay una sesion iniciada");
+                return false;
+            }
+            for (int i = 0; i < jsonArray.length(); i++) {                
+                String id = jsonArray.getString(i);
+                boolean add = funForm.eliminarForm(id);
+                if (add) {
+                    arrayRespuesta.put("Se elimino el formulario: " + id);
+                    almacenamiento.setForms(funForm.getListaForms());
+                }else{
+                    arrayRespuesta.put("Error, el formulario : " + id + " no se pudo eliminar");
+                }                
+            }
+        }catch(Exception e){
+            System.out.println("error en addForms : " + e.getMessage());
+        }
+        
+        return true;
+    }
+    
+    private boolean ModForms(JSONObject jsonObject){
+        try{
+            JSONArray jsonArray = (JSONArray) jsonObject.get("MODIFICAR_FORMS");
+            if (userNameSesion == null && jsonArray.length() > 0) {
+                 arrayRespuesta.put("Error: No se puede modificar los formularios, no hay una sesion iniciada");
+                return false;
+            }
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonForm = jsonArray.getJSONObject(i);
+                String id = jsonForm.getString("ID");
+                String titulo = jsonForm.getString("TITULO");
+                String nombre = jsonForm.getString("NOMBRE");
+                String tema = jsonForm.getString("TEMA");
+                Formulario form = new Formulario(id,titulo,nombre,tema,null,null);
+                boolean add = funForm.modForm(form);
+                if (add) {
+                    arrayRespuesta.put("Se modifico el formulario: " + id);
+                    almacenamiento.setForms(funForm.getListaForms());
+                }else{
+                    arrayRespuesta.put("Error, el formulario : " + id + " no se logro modificar");
+                }                
+            }
+        }catch(Exception e){
+            System.out.println("error en addForms : " + e.getMessage());
+        }
+        
+        return true;
+        
+    }
 
 
 }
