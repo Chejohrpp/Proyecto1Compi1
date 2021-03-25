@@ -5,6 +5,8 @@
  */
 package backend;
 
+import backend.funcionesObj.ComponenteModel;
+import backend.funcionesObj.FormularioModel;
 import backend.funcionesObj.UsuarioModel;
 import backend.objetos.LosErrores;
 import backend.objetos.Parametro;
@@ -53,31 +55,36 @@ import org.json.JSONObject;
  * @author sergi
  */
 public class Analizador {
+    //variables
     private String texto;
-    private String userNameSesion=null;
-    int cantLogin = 0;
-    int cantSolicitud = 0;
+    private String userNameSesion;
+    //int cantLogin = 0;
+    //int cantSolicitud = 0;
+    //objetos visuales
     private JTextArea txtRespuesta;
+    //listados
     private List<Parametro> listaParametros;
     private List<LosErrores> erroresSintacticos;
     private List<LosErrores> erroresLexicos;
     private List<LosErrores> errores;
-    private List<Solicitud> solicitudes;
+    //private List<Solicitud> solicitudes;
     //jsonObjects
-    private JSONArray arrayRequest = new JSONArray();    
-    private JSONArray arrayUser = new JSONArray();
-    private JSONArray arrayUserDelete = new JSONArray();
-    private JSONObject jsonLogin = new JSONObject();
+    //private JSONArray arrayRequest = new JSONArray();    
+    
+    //private JSONObject jsonLogin = new JSONObject();
     
     //funciones
     private UsuarioModel usuarioModel;
+    private FormularioModel formularioModel;
+    private ComponenteModel componenteModel;
     
     
-    public Analizador(String texto,JTextArea txtRespuesta){
+    public Analizador(String texto,JTextArea txtRespuesta, String userNameSesion){
         this.texto = texto;
         this.txtRespuesta = txtRespuesta;
         errores = new ArrayList<>();
-        solicitudes = new ArrayList<>();        
+        this.userNameSesion = userNameSesion;
+        //solicitudes = new ArrayList<>();        
     }
     public void analizar(){
         Reader inputString = new StringReader(texto);
@@ -106,6 +113,8 @@ public class Analizador {
     private void revisarListaParametros(){
         String solicitud = null;
         usuarioModel = new UsuarioModel(listaParametros,errores);
+        formularioModel = new FormularioModel(listaParametros,errores,userNameSesion);
+        componenteModel = new ComponenteModel(listaParametros,errores);
         for (int i = 0; i < listaParametros.size() ; i++) {    
             if (listaParametros.get(i).getCont() == null) {
                 try{
@@ -121,33 +130,40 @@ public class Analizador {
                             break;  
                         }
                         case "MODIFICAR_USUARIO":{
-                            
-                            
+                            usuarioModel.modUsers(i);
+                            break;                            
                         }
                         case "ELIMINAR_USUARIO":{
-                            
+                            usuarioModel.eliminarUsers(i);
+                            break;
                         }
                         case "LOGIN_USUARIO":{
                             usuarioModel.loginUser(i);
                             break;                            
                         }
                         case "NUEVO_FORMULARIO":{
-                            
+                            formularioModel.newForm(i);
+                            break;                            
                         }
                         case "ELIMINAR_FORMULARIO":{
-                            
+                            formularioModel.eliminarForm(i);
+                            break;
                         }
                         case "MODIFICAR_FORMULARIO":{
-                            
+                            formularioModel.ModForm(i);
+                            break;
                         }
                         case "AGREGAR_COMPONENTE":{
-                            
+                            componenteModel.addComponente(i);
+                            break;                            
                         }
                         case "ELIMINAR_COMPONENTE":{
-                            
+                            componenteModel.eliminarComponente(i);
+                            break;
                         }
                         case "MODIFICAR_COMPONENTE":{
-                            
+                            componenteModel.modificarComponente(i);
+                            break;
                         }
                         case "CONSULTAR_DATOS":{
                             
@@ -186,17 +202,21 @@ public class Analizador {
                 txtRespuesta.setText(txtRespuesta.getText() +  error.getMensaje() + "\n");
             }
         }
-    }
-    
-    
+    }   
     
     private void conectarServidor() throws FileNotFoundException, IOException, InterruptedException {
         
         JSONObject jsonObject = new JSONObject();        
         jsonObject.put("CREAR_USUARIO", usuarioModel.getArrayUser());
         jsonObject.put("LOGIN_USUARIO", usuarioModel.getJsonLogin());
-        jsonObject.put("ELIMINAR_USUARIOS", arrayUserDelete);
-        jsonObject.put("MODIFICAR_USUARIOS", arrayUserDelete);
+        jsonObject.put("ELIMINAR_USUARIOS", usuarioModel.getArrayUserDelete());
+        jsonObject.put("MODIFICAR_USUARIOS", usuarioModel.getArrayUserMod());
+        jsonObject.put("NUEVO_FORMS", formularioModel.getArrayForms());
+        jsonObject.put("ELIMINAR_FORMS", formularioModel.getArrayFormsDelete());
+        jsonObject.put("MODIFICAR_FORMS", formularioModel.getArrayFormsMod());
+        jsonObject.put("AGREGAR_COMP", componenteModel.getArrayComponente());
+        jsonObject.put("MODIFICAR_COMP", componenteModel.getArrayComponenteMod());
+        jsonObject.put("ELIMINAR_COMP", componenteModel.getArrayComponenteDelete());
         
 
         HttpClient client = HttpClient.newHttpClient();
@@ -214,17 +234,23 @@ public class Analizador {
             String userName = login.getString("USUARIO");
             if (!userName.equals("null")) {
                 userNameSesion = userName;
+                formularioModel.setUserName(userNameSesion);
             }else{
                 System.out.println("No hay usuario");
                 userNameSesion = null;                
-            }
+            }            
+        }catch (JSONException e) {
+              //System.out.println("error en el json de respuesta: " + e.getMessage());
+        }
+        
+        try{
             JSONArray arrayRespuesta = jsonRespuestas.getJSONArray("RESPUESTAS");
             for (int i = 0; i < arrayRespuesta.length(); i++) {
                 String respuesta = arrayRespuesta.getString(i);
                 txtRespuesta.setText(txtRespuesta.getText() +  respuesta + "\n");                
             }
-        }catch (JSONException e) {
-              System.out.println("error en el json de respuesta: " + e.getMessage());
+        }catch(Exception e){
+            System.out.println("Error en recibir las respuestas: " + e.getMessage());
         }
     }
     

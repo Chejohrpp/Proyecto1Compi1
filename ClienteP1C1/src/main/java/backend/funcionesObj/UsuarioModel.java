@@ -22,10 +22,14 @@ import org.json.JSONObject;
  */
 public class UsuarioModel {
     int cantLogin = 0;
+    //listas
     private List<Parametro> listaParametros;
     private List<LosErrores> errores;
+    //json
     private JSONArray arrayUser = new JSONArray();
     private JSONObject jsonLogin = new JSONObject();
+    private JSONArray arrayUserDelete = new JSONArray();
+    private JSONArray arrayUserMod = new JSONArray();
 
     public UsuarioModel(List<Parametro> listaParametros, List<LosErrores> errores) {
         this.listaParametros = listaParametros;
@@ -120,6 +124,89 @@ public class UsuarioModel {
         }
     }
     
+    public void eliminarUsers(int i){
+        String user = null;
+        int j =1;
+        while(true){
+            if (listaParametros.size() >= i+j+1) {
+                if (listaParametros.get(i+j).getCont() != null) {
+                    if (listaParametros.get(i+j).getKey().getLexema().equals("USUARIO") && user ==null){
+                        user = listaParametros.get(i+j).getCont().getLexema();
+                    }else{
+                        AddError(i+j);
+                    }
+                }else{
+                    break;
+                }
+            }else{
+                break;
+            }
+            j++;
+        }
+        
+        if (user != null) {
+            arrayUserDelete.put(user);
+        }else{
+            AddError(i);
+        }
+        
+    }
+    
+    public void modUsers(int i){
+        int j =1;
+        String userOld = null;
+        String user = null;
+        String pass = null;
+        String fechaMod = null;
+        
+        while(true){
+            if (listaParametros.size() >= i+j+1) {
+                if (listaParametros.get(i+j).getCont() != null) {
+                    if (listaParametros.get(i+j).getKey().getLexema().equals("USUARIO_ANTIGUO") && userOld ==null){
+                        userOld = listaParametros.get(i+j).getCont().getLexema();
+                    }else if (listaParametros.get(i+j).getKey().getLexema().equals("USUARIO_NUEVO") && user ==null){
+                        user = listaParametros.get(i+j).getCont().getLexema();
+                    }else if (listaParametros.get(i+j).getKey().getLexema().equals("NUEVO_PASSWORD") && pass ==null){
+                        pass = listaParametros.get(i+j).getCont().getLexema();
+                    }else if (listaParametros.get(i+j).getKey().getLexema().equals("FECHA_MODIFICACION") && fechaMod ==null){
+                        fechaMod = listaParametros.get(i+j).getCont().getLexema();
+                    }else{
+                        AddError(i+j);
+                    }
+                }else{
+                    break;
+                }
+            }else{
+                break;
+            }
+            j++;
+        }
+        
+        if (userOld != null && user != null && pass != null) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("USUARIO_ANTIGUO", userOld);
+            jsonObject.put("USUARIO_NUEVO", user);
+            jsonObject.put("PASSWORD", pass);  
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            if (fechaMod == null) {
+                Date date = Calendar.getInstance().getTime();                  
+                String strDate = dateFormat.format(date);
+                jsonObject.put("FECHA_MODIFICACION", strDate);
+            }else{
+                try {                   
+                    String strDate = dateFormat.format(dateFormat.parse(fechaMod));
+                    jsonObject.put("FECHA_MODIFICACION", strDate);
+                } catch (ParseException ex) {
+                    AddError(i);
+                }                
+            }
+            arrayUserMod.put(jsonObject);
+            
+        }else{
+            AddError(i);
+        }
+    }
+    
     private void AddError(int index){
         int linea = listaParametros.get(index).getKey().getLinea();
         int colum = listaParametros.get(index).getKey().getColumna();
@@ -133,6 +220,14 @@ public class UsuarioModel {
 
     public JSONObject getJsonLogin() {
         return jsonLogin;
+    }
+
+    public JSONArray getArrayUserDelete() {
+        return arrayUserDelete;
+    }
+
+    public JSONArray getArrayUserMod() {
+        return arrayUserMod;
     }
     
     

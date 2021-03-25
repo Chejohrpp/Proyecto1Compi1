@@ -66,6 +66,7 @@ public class EditorTexto extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextRespuesta = new javax.swing.JTextArea();
         lblResponse = new javax.swing.JLabel();
+        lblSesion = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         menuNuevo = new javax.swing.JMenuItem();
@@ -213,18 +214,22 @@ public class EditorTexto extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblResponse)
+                        .addGap(278, 278, 278)
+                        .addComponent(lblSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtLineaColumna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblResponse)
-                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblResponse)
+                    .addComponent(lblSesion))
+                .addGap(6, 6, 6)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -247,6 +252,7 @@ public class EditorTexto extends javax.swing.JFrame {
         // TODO add your handling code here:
         menuCerrarSesion.setVisible(false);
         userNameSesion = null;
+        lblSesion.setText("");
     }//GEN-LAST:event_menuCerrarSesionActionPerformed
 
     private void menuGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGuardarActionPerformed
@@ -286,11 +292,12 @@ public class EditorTexto extends javax.swing.JFrame {
     private void menuEnviarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEnviarServidorActionPerformed
         // TODO add your handling code here:
         String datos = jTextEditor.getText();
-        Analizador analizador = new Analizador(datos,jTextRespuesta);
+        Analizador analizador = new Analizador(datos,jTextRespuesta,userNameSesion);
         analizador.analizar();
         userNameSesion = analizador.getUserNameSesion();
         if (userNameSesion != null) {
             menuCerrarSesion.setVisible(true);
+            lblSesion.setText("Sesion iniciada: " + userNameSesion);
         }
         
     }//GEN-LAST:event_menuEnviarServidorActionPerformed
@@ -305,6 +312,7 @@ public class EditorTexto extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextEditor;
     private javax.swing.JTextArea jTextRespuesta;
     private javax.swing.JLabel lblResponse;
+    private javax.swing.JLabel lblSesion;
     private javax.swing.JMenuItem menuAbrir;
     private javax.swing.JMenuItem menuCerrarSesion;
     private javax.swing.JMenuItem menuCopiar;

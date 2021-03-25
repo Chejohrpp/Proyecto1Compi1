@@ -64,7 +64,8 @@ public class conectionAPC extends HttpServlet {
             JSONObject jsonObject =  new JSONObject(jb.toString());
             verificarLogin(jsonObject,jsonResponse);  
             addUsers(jsonObject,jsonResponse); 
-                      
+            EliminarUsers(jsonObject);
+            ModUsers(jsonObject);  
             
             
             jsonResponse.put("RESPUESTAS", arrayRespuesta);
@@ -100,38 +101,72 @@ public class conectionAPC extends HttpServlet {
                 arrayRespuesta.put("Se inicio sesion con el usuario: " + userNameSesion);
             }
         }catch (JSONException e) {
-          System.out.println("error en el json de login: " + e.getMessage());
+          //System.out.println("error en el json de login: " + e.getMessage());
         }
     }
     private void addUsers(JSONObject jsonObject, JSONObject jsonResponse){
-        
-        JSONArray jsonArray = (JSONArray) jsonObject.get("CREAR_USUARIO");           
-        for (int i = 0; i < jsonArray.length() ; i++) {
-            JSONObject jsonObject1 = (JSONObject) jsonArray.getJSONObject(i);
-            String user = jsonObject1.getString("USUARIO");
-            String pass = jsonObject1.getString("PASSWORD");
-            String fecha_creacion = jsonObject1.getString("FECHA_CREACION");
-            String fecha_mod = "null";
-            Usuario newUser = new Usuario(user,pass,fecha_creacion,fecha_mod);
-            boolean seCreo = funUser.addUser(newUser);            
-            if (seCreo) {
-                arrayRespuesta.put("Se creo el nuevo usuario: " + user);
-                almacenamiento.setUsuarios(funUser.getListaUsuarios());
-            }else{
-                arrayRespuesta.put("Error, el usuario : " + user + " esta repetido");
-            }
-            
+        try{
+            JSONArray jsonArray = (JSONArray) jsonObject.get("CREAR_USUARIO");           
+            for (int i = 0; i < jsonArray.length() ; i++) {
+                JSONObject jsonObject1 = (JSONObject) jsonArray.getJSONObject(i);
+                String user = jsonObject1.getString("USUARIO");
+                String pass = jsonObject1.getString("PASSWORD");
+                String fecha_creacion = jsonObject1.getString("FECHA_CREACION");
+                String fecha_mod = "null";
+                Usuario newUser = new Usuario(user,pass,fecha_creacion,fecha_mod);
+                boolean seCreo = funUser.addUser(newUser);            
+                if (seCreo) {
+                    arrayRespuesta.put("Se creo el nuevo usuario: " + user);
+                    almacenamiento.setUsuarios(funUser.getListaUsuarios());
+                }else{
+                    arrayRespuesta.put("Error, el usuario : " + user + " esta repetido");
+                }
+            }            
+        }catch(Exception e){            
         }       
         
     }
     
-    private void EliminarUsers(JSONObject jsonObject, JSONObject jsonResponse){
-        JSONArray jsonArray = (JSONArray) jsonObject.get("ELIMINAR_USUARIOS");
+    private void EliminarUsers(JSONObject jsonObject){
+        try{
+            JSONArray jsonArray = (JSONArray) jsonObject.get("ELIMINAR_USUARIOS");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                String id = jsonArray.getString(i);
+                boolean eliminado = funUser.EliminarUser(new Usuario(id,null,null,null));
+                if (eliminado) {
+                    arrayRespuesta.put("Se elimino el usuario: " + id);
+                    almacenamiento.setUsuarios(funUser.getListaUsuarios());
+                }else{
+                     arrayRespuesta.put("Error, el usuario : " + id  + " no fue eliminado");
+                }
+            }
+        }catch(Exception e){
+            
+        }
+        
         
     }
     
-    private void ModUsers(JSONObject jsonObject, JSONObject jsonResponse){
+    private void ModUsers(JSONObject jsonObject){        
+        try{
         JSONArray jsonArray = (JSONArray) jsonObject.get("MODIFICAR_USUARIOS");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonUser = jsonArray.getJSONObject(i);
+                String userOld = jsonUser.getString("USUARIO_ANTIGUO");
+                String user = jsonUser.getString("USUARIO_NUEVO");
+                String pass = jsonUser.getString("PASSWORD");
+                String fechaMod = jsonUser.getString("FECHA_MODIFICACION");
+                boolean modificado = funUser.setUser(userOld, new Usuario(user,pass,null,fechaMod));
+                if (modificado) {
+                    arrayRespuesta.put("Se modificaron los datos del usuario: " + userOld);
+                    almacenamiento.setUsuarios(funUser.getListaUsuarios());
+                }else{
+                    arrayRespuesta.put("Error, el usuario: " + userOld  + " no se modificaron sus datos");
+                }
+            }
+        }catch(Exception e){
+            System.out.println("error en mod Users :" + e.getMessage());
+        }
         
     }
 
