@@ -144,7 +144,7 @@ public class Almacenamiento {
                     formularios += "}\n";
                 }               
                 formularios += ")\n";
-                formularios += "DATOS_RECOPILADOS : (\n";
+                formularios += "\"DATOS_RECOPILADOS\" : (\n";
                 for (DatoRegistros datos : form.getListaDatos()) {
                     formularios += "{\n";
                     formularios += "\"NOMBRE_CAMPO\" : \"" + datos.getNombreCampo()   +"\",\n";                    

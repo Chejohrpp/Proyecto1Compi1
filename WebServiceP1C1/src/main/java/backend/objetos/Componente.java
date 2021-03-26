@@ -35,6 +35,19 @@ public class Componente {
         this.columnas = columnas;
         this.url = url;
     }
+    public Componente(Componente componente){
+        this.id = componente.getId();
+        this.nombreCampo = componente.getNombreCampo();
+        this.clase = componente.getClase();
+        this.indice = componente.getIndice();
+        this.textoVisible = componente.getTextoVisible();
+        this.alineacion = componente.getAlineacion();
+        this.requerido = componente.getRequerido();
+        this.opciones = componente.getOpciones();
+        this.filas = componente.getFilas();
+        this.columnas = componente.getColumnas();
+        this.url = componente.getUrl();
+    }
 
     public String getId() {
         return id;

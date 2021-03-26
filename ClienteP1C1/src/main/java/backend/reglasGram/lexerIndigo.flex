@@ -18,13 +18,13 @@ decimal=[1-9][0-9]*[.]{entero}| [0][.]{entero}
 entero=[0-9]+
 number = ({entero}|{decimal})
 letra = [a-zA-Z]
-string = ({letra}|{number}|[_]|[-]|[$][/])+
-stringSpace =({letra}|{number})+({letra}|{number}|{whiteSpace})*
+string = ({letra}|{number}|[_]|[-]|[$])+
+stringSpace =({letra}|{number})+({string}|{whiteSpace})*
 cont_consulta = ( "\"SELECT" | "\"" + {whiteSpace} + "SELECT" ) {consulta} ( "]\"" | "]" + {whiteSpace} + "\"" )
 consulta       = ( [^\]] |"]"+ [^ \f\t\r\n\]\"] | "]"+ ({whiteSpace}) [^\]\"] )*
 consulta_N = ("CONSULTA")[-]({entero})
 CONT_ID = ([$]|[_]|[-])({letra}|{number}|[$]|[-]|[_])+
-cont_opciones = ({stringSpace}[|])+({stringSpace})
+cont_opciones = (({stringSpace}|{string})("|")({whiteSpace})?)+({stringSpace}|{string})
 
 cont_url = (({stringSpace}|".."|[:])?[/\\])*({stringSpace}("."){letra})
 

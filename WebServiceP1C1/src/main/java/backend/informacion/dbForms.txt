@@ -8,33 +8,46 @@ db.formularios(
 "FECHA_CREACION" : "2021-03-25",
 "ESTRUCTURA" : (
 {
-"ID" : "$id1",
-"NOMBRE_CAMPO" : "$id1",
-"CLASE" : "$id1",
-"INDICE" : "$id1",
-"TEXTO_VISIBLE" : "$id1",
-"ALINEACION" : "$id1",
-"REQUERIDO" : "$id1",
-"OPCIONES" : "$id1",
-"FILAS" : "$id1",
-"COLUMNAS" : "$id1",
+"ID" : "$_text_cliente",
+"NOMBRE_CAMPO" : "Cliente",
+"CLASE" : "CAMPO_TEXTO",
+"INDICE" : "1",
+"TEXTO_VISIBLE" : "Nombre de cliente ",
+"ALINEACION" : "CENTRO",
+"REQUERIDO" : "SI",
+"OPCIONES" : "null",
+"FILAS" : "null",
+"COLUMNAS" : "null",
 "URL" : "null"
 }
 {
-"ID" : "$id2",
-"NOMBRE_CAMPO" : "$id1",
-"CLASE" : "$id1",
-"INDICE" : "$id1",
-"TEXTO_VISIBLE" : "$id1",
-"ALINEACION" : "$id1",
-"REQUERIDO" : "$id1",
-"OPCIONES" : "$id1",
-"FILAS" : "$id1",
-"COLUMNAS" : "$id1",
+"ID" : "$_radio",
+"NOMBRE_CAMPO" : "device",
+"CLASE" : "RADIO",
+"INDICE" : "2",
+"TEXTO_VISIBLE" : "elija una opcion",
+"ALINEACION" : "DERECHA",
+"REQUERIDO" : "SI",
+"OPCIONES" : "computadora | me va a escuchar | que si da hombre",
+"FILAS" : "null",
+"COLUMNAS" : "null",
+"URL" : "null"
+}
+{
+"ID" : "$_buton",
+"NOMBRE_CAMPO" : "null",
+"CLASE" : "BOTON",
+"INDICE" : "3",
+"TEXTO_VISIBLE" : "Aceptar",
+"ALINEACION" : "CENTRO",
+"REQUERIDO" : "SI",
+"OPCIONES" : "null",
+"FILAS" : "null",
+"COLUMNAS" : "null",
 "URL" : "null"
 }
 )
-DATOS_RECOPILADOS : (
+"DATOS_RECOPILADOS" : (
 )
 ]
 "FORMULARIO" : [
@@ -46,7 +59,7 @@ DATOS_RECOPILADOS : (
 "FECHA_CREACION" : "2021-03-25",
 "ESTRUCTURA" : (
 )
-DATOS_RECOPILADOS : (
+"DATOS_RECOPILADOS" : (
 )
 ]
 )

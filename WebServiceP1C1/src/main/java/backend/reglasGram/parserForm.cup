@@ -164,7 +164,7 @@ columnas ::= COMILLA COLUMNAS COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
 url ::= COMILLA URL COMILLA DOS_PUNTOS dato: d  		{:RESULT = d;:}
 			|error ;
 
-datos_recopilados ::=  DATOS_RECOPILADOS DOS_PUNTOS	PAI sig_datos_recopilados
+datos_recopilados ::=  COMILLA DATOS_RECOPILADOS COMILLA DOS_PUNTOS	PAI sig_datos_recopilados
 						|error ;
 
 sig_datos_recopilados ::= registros PAD

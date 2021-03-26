@@ -18,10 +18,10 @@ entero=[0-9]+
 number = ({entero}|{decimal})
 letra = [a-zA-Z]
 
-string = ({letra}|{number}|[_]|[-]|[$][/])+
-stringSpace =({letra}|{number})+({letra}|{number}|{whiteSpace})*
+string = ({letra}|{number}|[_]|[-]|[$])+
+stringSpace =({letra}|{number})+({string}|{whiteSpace})*
 CONT_ID = ([$]|[_]|[-])({letra}|{number}|[$]|[-]|[_])+
-cont_opciones = ({stringSpace}[|])+({stringSpace})
+cont_opciones = (({stringSpace}|{string})("|")({whiteSpace})?)+({stringSpace}|{string})
 cont_url = (({stringSpace}|".."|[:])?[/\\])*({stringSpace}("."){letra})
 
 allStrings = ({string}|{stringSpace}|{CONT_ID}|{cont_opciones}|{cont_url})
