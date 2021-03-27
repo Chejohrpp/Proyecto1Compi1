@@ -1,11 +1,10 @@
 #Contenido{
-    margin: 40px;
+    margin: 20px;
     padding-left: 25%;
 }
 
 .caja {
     width: 800px;
-    height: 500px;
     background: white;
     color: black;
     top: 50%;
@@ -13,7 +12,49 @@
     position: absolute;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
-    padding: 80px 40px;
+    padding: 10px 40px;
 }
 
+h2,h3,h1{
+    text-align: center;
+    color: #B110E8;
+}
+h3{
+    font-size: 15px;
+}
+label{
+    margin: 2px;
+    padding: 10px;
+    font-weight: bold;
+    display:block;
+}
+input {
+    border-color: #B607F2;
+}
 
+input[type="text"]{
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid    ;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-left: 1px solid;
+    border-color: #B607F2;
+    border-radius: 4px;
+    outline: none;
+    height: 40px;
+    font-size: 20px;
+}
+input[type="submit"]{
+    width: 100%;
+    margin: 75px 0px;
+    margin-bottom: 5px;
+    border: none;
+    outline: none;
+    background: #970DC6;
+    border-radius: 4px;
+    color: white;
+    font-size: 20px;
+    padding: 10px 5px;
+    cursor:pointer;
+}

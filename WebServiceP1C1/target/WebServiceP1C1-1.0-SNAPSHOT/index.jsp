@@ -12,9 +12,9 @@
         <%@include file="barraNav.jsp" %>        
         <div id="Contenido">
             <div class="caja">
-                <form action="conectionAPC" method="POST">
+                <form action="Formulario" method="POST">
                     <h2> Ingrese el link:</h2>
-                    <input type="text" name="link"/>
+                    <input type="text" name="id_form"/>
                     <input type="submit" value="Enviar Formulario">
                 </form>
             </div>
