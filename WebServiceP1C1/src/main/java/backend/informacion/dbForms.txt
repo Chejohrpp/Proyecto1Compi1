@@ -48,6 +48,22 @@ db.formularios(
 }
 )
 "DATOS_RECOPILADOS" : (
+{
+"NOMBRE_CAMPO" : "Cliente",
+"REGISTRO" : "yo el mero"
+"REGISTRO" : "secrets for me"
+"REGISTRO" : "no alalalalalala"
+"REGISTRO" : "no alalalalalala"
+"REGISTRO" : "side to side"
+}
+{
+"NOMBRE_CAMPO" : "device",
+"REGISTRO" : "computadora "
+"REGISTRO" : "que si da hombre"
+"REGISTRO" : "me va a escuchar "
+"REGISTRO" : "me va a escuchar "
+"REGISTRO" : " que si da hombre"
+}
 )
 ]
 "FORMULARIO" : [

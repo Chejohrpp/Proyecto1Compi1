@@ -64,6 +64,15 @@ public class FormularioFunctions {
         }
         return false;
     }
+    public boolean modListaDatos(Formulario formulario){
+        for (Formulario listaForm : listaForms) {
+            if (listaForm.getId().equals(formulario.getId())) {
+                listaForm.setListaDatos(formulario.getListaDatos());
+                return true;
+            }
+        }
+        return false;
+    }
     private boolean verificarNull(String str){
         if (str.equals("null")) {
             return false;

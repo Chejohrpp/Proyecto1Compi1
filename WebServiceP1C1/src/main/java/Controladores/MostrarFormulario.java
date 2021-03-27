@@ -81,7 +81,8 @@ public class MostrarFormulario extends HttpServlet {
             out.println("<div id=\"Contenido\">");
             out.println("<div class=\"caja\">");
             out.println("<h1>" +formulario.getTitulo() + "</h1>");
-            out.println("<form action=\"hola\" method=\"POST\">");
+            out.println("<form action=\"GuardarDatos\" method=\"POST\">");
+            out.println("<input type=\"hidden\" name=\"id_form\" value=\""+idForm+"\" />");
             for (Componente listaComponente : listaComponentes) {
                 dibujar(out,listaComponente);
             }            
