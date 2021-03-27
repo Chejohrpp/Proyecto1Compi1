@@ -1,23 +1,32 @@
+@font-face{
+    font-family: "bill";
+    src: url(../../Resource/font/Billabong.ttf);
+}
+
 #Contenido{
-    margin: 20px;
-    padding-left: 25%;
+    margin: 2px;
+        padding-left: 25%;
 }
 
 .caja {
     width: 800px;
-    background: white;
+    background: #F4ECF7;
     color: black;
     top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%,-50%);
+    left: 30%;
+    position: relative;
+    transform: translate(-50%,2%);
     box-sizing: border-box;
     padding: 10px 40px;
+    font-family: verdana;
+   font-size: 21px;
 }
 
 h2,h3,h1{
     text-align: center;
     color: #B110E8;
+    font-family: "bill";
+    font-size: 80px;
 }
 h3{
     font-size: 15px;
@@ -25,16 +34,39 @@ h3{
 label{
     margin: 2px;
     padding: 10px;
-    font-weight: bold;
+    font-weight: normal;
     display:block;
+    font-family: "bill";
+    font-size: 47px;
+}
+
+#opciones{
+    display: inline-block;
+    font-size: 22px;
+    font-family: verdana;
 }
 input {
     border-color: #B607F2;
 }
 
+textArea,select{
+    border-color: #B607F2;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+select{
+    height: 29px;
+    font-size: 22px;
+    
+}
+input[type="radio"],input[type="checkbox"],input[type="file"]{
+    margin-bottom: 30px;
+    font-size: 22px;  
+}
+
 input[type="text"]{
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     border-bottom: 1px solid    ;
     border-top: 1px solid;
     border-right: 1px solid;
@@ -43,18 +75,18 @@ input[type="text"]{
     border-radius: 4px;
     outline: none;
     height: 40px;
-    font-size: 20px;
+    font-size: 22px;
 }
 input[type="submit"]{
     width: 100%;
-    margin: 75px 0px;
+    margin: 30px 0px;
     margin-bottom: 5px;
     border: none;
     outline: none;
     background: #970DC6;
     border-radius: 4px;
     color: white;
-    font-size: 20px;
+    font-size: 22px;
     padding: 10px 5px;
     cursor:pointer;
 }

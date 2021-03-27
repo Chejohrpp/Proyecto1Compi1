@@ -116,7 +116,8 @@ public class MostrarFormulario extends HttpServlet {
                 out.println("<label>"+textoVisible+"</label>");
                 String[] opciones = opciones(componente.getOpciones());
                 for (String opcione : opciones) {
-                    out.println(" <input type=\"checkbox\" name=\""+componente.getNombreCampo()+"\"  value=\""+opcione+"\" "+requerido+"> "+opcione+""); 
+                    out.println(" <input type=\"checkbox\" name=\""+componente.getNombreCampo()+"\"  value=\""+opcione+"\" "+requerido+">");
+                    out.println(" <label id=\"opciones\">"+opcione+"</label><br>"); 
                 }
                 break;
             }
@@ -124,7 +125,8 @@ public class MostrarFormulario extends HttpServlet {
                 out.println("<label>"+textoVisible+"</label>");
                 String[] opciones = opciones(componente.getOpciones());
                 for (String opcione : opciones) {
-                    out.println(" <input type=\"radio\" name=\""+componente.getNombreCampo()+"\"  value=\""+opcione+"\" "+requerido+" /> "+opcione+""); 
+                    out.println(" <input type=\"radio\" name=\""+componente.getNombreCampo()+"\"  value=\""+opcione+"\" "+requerido+" />"); 
+                    out.println(" <label id=\"opciones\">"+opcione+"</label><br>"); 
                 }              
                 break;
             }

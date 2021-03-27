@@ -28,7 +28,59 @@ db.formularios(
 "TEXTO_VISIBLE" : "elija una opcion",
 "ALINEACION" : "DERECHA",
 "REQUERIDO" : "SI",
-"OPCIONES" : "computadora | me va a escuchar | que si da hombre",
+"OPCIONES" : "computadora | me va a escuchar | que si da hombre|mas coas|y asi|ara ara",
+"FILAS" : "null",
+"COLUMNAS" : "null",
+"URL" : "null"
+}
+{
+"ID" : "$_text_area",
+"NOMBRE_CAMPO" : "solo",
+"CLASE" : "AREA_TEXTO",
+"INDICE" : "3",
+"TEXTO_VISIBLE" : "desc ",
+"ALINEACION" : "CENTRO",
+"REQUERIDO" : "NO",
+"OPCIONES" : "null",
+"FILAS" : "0",
+"COLUMNAS" : "0",
+"URL" : "null"
+}
+{
+"ID" : "$_check",
+"NOMBRE_CAMPO" : "check",
+"CLASE" : "CHECKBOX",
+"INDICE" : "4",
+"TEXTO_VISIBLE" : "elija una alGO",
+"ALINEACION" : "CENTRO",
+"REQUERIDO" : "no",
+"OPCIONES" : "moto | carro",
+"FILAS" : "null",
+"COLUMNAS" : "null",
+"URL" : "null"
+}
+{
+"ID" : "$_fichero",
+"NOMBRE_CAMPO" : "ficha",
+"CLASE" : "FICHERO",
+"INDICE" : "5",
+"TEXTO_VISIBLE" : "imagen",
+"ALINEACION" : "CENTRO",
+"REQUERIDO" : "no",
+"OPCIONES" : "null",
+"FILAS" : "null",
+"COLUMNAS" : "null",
+"URL" : "null"
+}
+{
+"ID" : "$_combo",
+"NOMBRE_CAMPO" : "selecciona",
+"CLASE" : "COMBO",
+"INDICE" : "6",
+"TEXTO_VISIBLE" : "selecciona algo",
+"ALINEACION" : "CENTRO",
+"REQUERIDO" : "SI",
+"OPCIONES" : "ps5|xbox serie X|switch",
 "FILAS" : "null",
 "COLUMNAS" : "null",
 "URL" : "null"
@@ -37,7 +89,7 @@ db.formularios(
 "ID" : "$_buton",
 "NOMBRE_CAMPO" : "null",
 "CLASE" : "BOTON",
-"INDICE" : "3",
+"INDICE" : "7",
 "TEXTO_VISIBLE" : "Aceptar",
 "ALINEACION" : "CENTRO",
 "REQUERIDO" : "SI",
@@ -55,6 +107,17 @@ db.formularios(
 "REGISTRO" : "no alalalalalala"
 "REGISTRO" : "no alalalalalala"
 "REGISTRO" : "side to side"
+"REGISTRO" : "dgdf"
+"REGISTRO" : "yy"
+"REGISTRO" : "yyyuyu"
+"REGISTRO" : "theyt"
+"REGISTRO" : "ti ti"
+"REGISTRO" : "cliente"
+"REGISTRO" : "cliente1"
+"REGISTRO" : "a ver que pe"
+"REGISTRO" : "ii"
+"REGISTRO" : "22"
+"REGISTRO" : "a ver que pedo"
 }
 {
 "NOMBRE_CAMPO" : "device",
@@ -62,7 +125,53 @@ db.formularios(
 "REGISTRO" : "que si da hombre"
 "REGISTRO" : "me va a escuchar "
 "REGISTRO" : "me va a escuchar "
-"REGISTRO" : " que si da hombre"
+"REGISTRO" : "que si da hombre"
+"REGISTRO" : "que si da hombre"
+"REGISTRO" : "computadora "
+"REGISTRO" : "computadora "
+"REGISTRO" : "me va a escuchar "
+"REGISTRO" : "que si da hombre"
+"REGISTRO" : "que si da hombre"
+"REGISTRO" : "que si da hombre"
+"REGISTRO" : "me va a escuchar "
+"REGISTRO" : "me va a escuchar "
+"REGISTRO" : "que si da hombre"
+"REGISTRO" : "ara ara"
+}
+{
+"NOMBRE_CAMPO" : "solo",
+"REGISTRO" : "watashi wa"
+"REGISTRO" : "d"
+"REGISTRO" : "descsss run way who satop fdsfs you f"
+"REGISTRO" : "p"
+"REGISTRO" : "vuelta"
+"REGISTRO" : "uuuu"
+"REGISTRO" : "lknknknknknkn"
+}
+{
+"NOMBRE_CAMPO" : "check",
+"REGISTRO" : "moto "
+"REGISTRO" : "moto "
+"REGISTRO" : "moto "
+"REGISTRO" : "moto "
+"REGISTRO" : "moto "
+"REGISTRO" : "carro"
+"REGISTRO" : "carro"
+"REGISTRO" : "carro"
+}
+{
+"NOMBRE_CAMPO" : "ficha",
+"REGISTRO" : "system2gt"
+"REGISTRO" : "formstxt"
+"REGISTRO" : "formstxt"
+"REGISTRO" : "Bloc de notas de sergio rolando url"
+}
+{
+"NOMBRE_CAMPO" : "selecciona",
+"REGISTRO" : "ps5"
+"REGISTRO" : "ps5"
+"REGISTRO" : "xbox serie X"
+"REGISTRO" : "xbox serie X"
 }
 )
 ]

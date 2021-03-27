@@ -89,9 +89,15 @@ public class GuardarDatos extends HttpServlet {
         List<DatoRegistros> listaDatos = formulario.getListaDatos();
         DatoRegistrosFunctions funDatos = new DatoRegistrosFunctions(listaDatos);
         for (Componente componente : listaComponentes) {
-            if (!componente.getNombreCampo().equals("null")) {
-                String nombreCampo = request.getParameter(componente.getNombreCampo());
-                funDatos.addRegistro(verificarNull(nombreCampo), componente.getNombreCampo());
+            if (!componente.getNombreCampo().equals("null") && !componente.equals("")) {
+                String nombreCampo = request.getParameter(componente.getNombreCampo());                
+                try{
+                    if (!nombreCampo.equals("")) {
+                        funDatos.addRegistro(verificarNull(nombreCampo), componente.getNombreCampo());
+                    }
+                }catch(Exception e){
+                    //System.out.println("error: " + e.getMessage());
+                }             
             }
         }
         formulario.setListaDatos(listaDatos);
