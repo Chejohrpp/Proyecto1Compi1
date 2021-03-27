@@ -80,7 +80,20 @@ db.formularios(
 "TEXTO_VISIBLE" : "selecciona algo",
 "ALINEACION" : "CENTRO",
 "REQUERIDO" : "SI",
-"OPCIONES" : "ps5|xbox serie X|switch",
+"OPCIONES" : "ps5|xbox serie X|switch|la consola mas mamalona que ha existido",
+"FILAS" : "null",
+"COLUMNAS" : "null",
+"URL" : "null"
+}
+{
+"ID" : "$_radio2",
+"NOMBRE_CAMPO" : "oket",
+"CLASE" : "RADIO",
+"INDICE" : "2",
+"TEXTO_VISIBLE" : "elija una opcion",
+"ALINEACION" : "DERECHA",
+"REQUERIDO" : "SI",
+"OPCIONES" : "jeje|voy|jdljsljfld",
 "FILAS" : "null",
 "COLUMNAS" : "null",
 "URL" : "null"
@@ -118,6 +131,8 @@ db.formularios(
 "REGISTRO" : "ii"
 "REGISTRO" : "22"
 "REGISTRO" : "a ver que pedo"
+"REGISTRO" : "enviando datos"
+"REGISTRO" : "33333333"
 }
 {
 "NOMBRE_CAMPO" : "device",
@@ -137,6 +152,8 @@ db.formularios(
 "REGISTRO" : "me va a escuchar "
 "REGISTRO" : "que si da hombre"
 "REGISTRO" : "ara ara"
+"REGISTRO" : "ara ara"
+"REGISTRO" : "mas coas"
 }
 {
 "NOMBRE_CAMPO" : "solo",
@@ -147,6 +164,7 @@ db.formularios(
 "REGISTRO" : "vuelta"
 "REGISTRO" : "uuuu"
 "REGISTRO" : "lknknknknknkn"
+"REGISTRO" : "descripcion"
 }
 {
 "NOMBRE_CAMPO" : "check",
@@ -172,6 +190,13 @@ db.formularios(
 "REGISTRO" : "ps5"
 "REGISTRO" : "xbox serie X"
 "REGISTRO" : "xbox serie X"
+"REGISTRO" : "la consola mas mamalona que ha existido"
+"REGISTRO" : "switch"
+}
+{
+"NOMBRE_CAMPO" : "oket",
+"REGISTRO" : "voy"
+"REGISTRO" : "jdljsljfld"
 }
 )
 ]

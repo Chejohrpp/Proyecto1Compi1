@@ -5,7 +5,7 @@
 
 #Contenido{
     margin: 2px;
-        padding-left: 25%;
+    padding-left: 25%;
 }
 
 .caja {
@@ -55,11 +55,11 @@ textArea,select{
     font-size: 22px;
 }
 select{
-    height: 29px;
-    font-size: 22px;
+    height: 47px;
+    font-size: 26px;
     
 }
-input[type="radio"],input[type="checkbox"],input[type="file"]{
+input[type="radio"],input[type="checkbox"]{
     margin-bottom: 30px;
     font-size: 22px;  
 }
@@ -89,4 +89,46 @@ input[type="submit"]{
     font-size: 22px;
     padding: 10px 5px;
     cursor:pointer;
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + #labelFile {
+    /*font-size: 17px;
+    font-weight: 700;   
+    display: inline-block;*/
+    
+    max-width: 80%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    font-size: 30px;
+     background-color: #D187EA;
+}
+
+.inputfile:focus + #labelFile {
+    background-color: #BD68DA;
+}
+
+.inputfile + #labelFile:hover {
+    background-color: #BD68DA;
+}
+
+.inputfile + #labelFile {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.inputfile:focus + #labelFile {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
 }
