@@ -3,7 +3,7 @@ db.formularios(
 "ID_FORMULARIO" : "$form1",
 "TITULO" : "Modificado para encuesta 1",
 "NOMBRE" : "formulario_encuesta_1_v2",
-"TEMA" : "violet",
+"TEMA" : "dark",
 "USUARIO_CREACION" : "admin",
 "FECHA_CREACION" : "2021-03-25",
 "ESTRUCTURA" : (

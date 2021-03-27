@@ -1,1 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
 
+#Contenido{
+    margin: 2px;
+    padding-left: 25%;
+}
+
+.caja {
+    width: 800px;
+    background: #3CC6A8;
+    color: black;
+    top: 50%;
+    left: 30%;
+    position: relative;
+    transform: translate(-50%,2%);
+    box-sizing: border-box;
+    padding: 10px 40px;
+    font-family: verdana;
+   font-size: 21px;
+   font-family: 'Lexend', sans-serif;
+}
+
+h2,h3,h1{
+    text-align: center;
+    color: white;
+    font-size: 80px;
+}
+h3{
+    font-size: 15px;
+}
+label{
+    margin: 2px;
+    padding: 10px;
+    font-weight: normal;
+    display:block;
+    font-size: 45px;
+}
+
+#opciones{
+    display: inline-block;
+    font-size: 22px;
+    font-family: verdana;
+}
+input {
+    border-color: #B607F2;
+}
+
+textArea,select{
+    border-color: #0CCD7D;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+select{
+    height: 47px;
+    font-size: 26px;
+    
+}
+input[type="radio"],input[type="checkbox"]{
+    margin-bottom: 30px;
+    font-size: 22px;  
+}
+
+input[type="text"]{
+    width: 100%;
+    margin-bottom: 30px;
+    border-bottom: 1px solid    ;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-left: 1px solid;
+    border-color: #0CCD7D;
+    border-radius: 4px;
+    outline: none;
+    height: 40px;
+    font-size: 22px;
+}
+input[type="submit"]{
+    width: 100%;
+    margin: 30px 0px;
+    margin-bottom: 5px;
+    border: none;
+    outline: none;
+    background: #0DC655;
+    border-radius: 4px;
+    color: white;
+    font-size: 22px;
+    padding: 10px 5px;
+    cursor:pointer;
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + #labelFile {
+    /*font-size: 17px;
+    font-weight: 700;   
+    display: inline-block;*/
+    
+    max-width: 80%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    font-size: 30px;
+     background-color: #87EAC5;
+}
+
+.inputfile:focus + #labelFile {
+    background-color: #68DAB0;
+}
+
+.inputfile + #labelFile:hover {
+    background-color: #68DAB0;
+}
+
+.inputfile + #labelFile {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.inputfile:focus + #labelFile {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
