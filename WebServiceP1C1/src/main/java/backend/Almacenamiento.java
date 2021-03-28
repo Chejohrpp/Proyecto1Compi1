@@ -120,41 +120,7 @@ public class Almacenamiento {
         try {
             String formularios = "db.formularios(\n";
             for (Formulario form : listaForms) {
-                formularios += "\"FORMULARIO\" : [\n";
-                formularios += "\"ID_FORMULARIO\" : \"" +  form.getId() +"\",\n";
-                formularios += "\"TITULO\" : \"" +  form.getTitulo() +"\",\n";
-                formularios += "\"NOMBRE\" : \"" +  form.getNombre() +"\",\n";
-                formularios += "\"TEMA\" : \"" +  form.getTema() +"\",\n";
-                formularios += "\"USUARIO_CREACION\" : \"" + form.getUsuarioCreacion() +"\",\n";
-                formularios += "\"FECHA_CREACION\" : \"" +  form.getFechaCreacion() +"\",\n";
-                formularios += "\"ESTRUCTURA\" : (\n";
-                for (Componente comp : form.getListaComponentes()) {
-                    formularios += "{\n";
-                    formularios += "\"ID\" : \"" +  comp.getId() +"\",\n";
-                    formularios += "\"NOMBRE_CAMPO\" : \"" +  comp.getNombreCampo() +"\",\n";
-                    formularios += "\"CLASE\" : \"" +  comp.getClase() +"\",\n";
-                    formularios += "\"INDICE\" : \"" +  comp.getIndice() +"\",\n";
-                    formularios += "\"TEXTO_VISIBLE\" : \"" +  comp.getTextoVisible() +"\",\n";
-                    formularios += "\"ALINEACION\" : \"" +  comp.getAlineacion() +"\",\n";
-                    formularios += "\"REQUERIDO\" : \"" +  comp.getRequerido() +"\",\n";
-                    formularios += "\"OPCIONES\" : \"" +  comp.getOpciones() +"\",\n";
-                    formularios += "\"FILAS\" : \"" +  comp.getFilas() +"\",\n";
-                    formularios += "\"COLUMNAS\" : \"" +  comp.getColumnas() +"\",\n";
-                    formularios += "\"URL\" : \"" +  comp.getUrl() +"\"\n";                    
-                    formularios += "}\n";
-                }               
-                formularios += ")\n";
-                formularios += "\"DATOS_RECOPILADOS\" : (\n";
-                for (DatoRegistros datos : form.getListaDatos()) {
-                    formularios += "{\n";
-                    formularios += "\"NOMBRE_CAMPO\" : \"" + datos.getNombreCampo()   +"\",\n";                    
-                    for (String dato : datos.getListaRegistros()) {
-                        formularios += "\"REGISTRO\" : \"" + dato +"\"\n";
-                    }                    
-                    formularios += "}\n";
-                }                
-                formularios += ")\n";
-                formularios += "]\n";
+                formularios += llenarForm(form,true);
             }   formularios += ")";
             fileWriter = new FileWriter(PATH_FORMS);
             fileWriter.write(formularios);
@@ -169,5 +135,62 @@ public class Almacenamiento {
         }        
     }
     
+    public String getEstructuraForm(String id){
+        String formularios = "";
+        List<Formulario> listaForm = getForms();
+        try{
+            for (Formulario form : listaForm) {
+                if (form.getId().equals(id)) {
+                    formularios += llenarForm(form,false);             
+                } 
+            }
+        }catch(Exception e){
+            //System.out.println("error en getEstructuraForm " + e.getMessage());
+        }               
+        return formularios;
+    }
+    
+    private String llenarForm(Formulario form, boolean usarDatos){
+        String formularios = "";
+        formularios += "\"FORMULARIO\" : [\n";
+        formularios += "\"ID_FORMULARIO\" : \"" +  form.getId() +"\",\n";
+        formularios += "\"TITULO\" : \"" +  form.getTitulo() +"\",\n";
+        formularios += "\"NOMBRE\" : \"" +  form.getNombre() +"\",\n";
+        formularios += "\"TEMA\" : \"" +  form.getTema() +"\",\n";
+        formularios += "\"USUARIO_CREACION\" : \"" + form.getUsuarioCreacion() +"\",\n";
+        formularios += "\"FECHA_CREACION\" : \"" +  form.getFechaCreacion() +"\",\n";
+        formularios += "\"ESTRUCTURA\" : (\n";
+        for (Componente comp : form.getListaComponentes()) {
+            formularios += "{\n";
+            formularios += "\"ID\" : \"" +  comp.getId() +"\",\n";
+            formularios += "\"NOMBRE_CAMPO\" : \"" +  comp.getNombreCampo() +"\",\n";
+            formularios += "\"CLASE\" : \"" +  comp.getClase() +"\",\n";
+            formularios += "\"INDICE\" : \"" +  comp.getIndice() +"\",\n";
+            formularios += "\"TEXTO_VISIBLE\" : \"" +  comp.getTextoVisible() +"\",\n";
+            formularios += "\"ALINEACION\" : \"" +  comp.getAlineacion() +"\",\n";
+            formularios += "\"REQUERIDO\" : \"" +  comp.getRequerido() +"\",\n";
+            formularios += "\"OPCIONES\" : \"" +  comp.getOpciones() +"\",\n";
+            formularios += "\"FILAS\" : \"" +  comp.getFilas() +"\",\n";
+            formularios += "\"COLUMNAS\" : \"" +  comp.getColumnas() +"\",\n";
+            formularios += "\"URL\" : \"" +  comp.getUrl() +"\"\n";                    
+            formularios += "}\n";
+        }               
+        formularios += ")\n";
+        formularios += "\"DATOS_RECOPILADOS\" : (\n";
+        if (usarDatos) {
+            for (DatoRegistros datos : form.getListaDatos()) {
+                formularios += "{\n";
+                formularios += "\"NOMBRE_CAMPO\" : \"" + datos.getNombreCampo()   +"\",\n";                    
+                for (String dato : datos.getListaRegistros()) {
+                    formularios += "\"REGISTRO\" : \"" + dato +"\"\n";
+                }                    
+                formularios += "}\n";
+            } 
+        }               
+        formularios += ")\n";
+        formularios += "]\n";
+        
+        return formularios;
+    }  
     
 }

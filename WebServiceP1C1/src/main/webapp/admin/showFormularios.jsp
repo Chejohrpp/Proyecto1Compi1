@@ -34,7 +34,7 @@
                             <tr>
                                 <td>${solicitud}</td>
                                 <td>http://localhost:8080/WebServiceP1C1/Formulario?id_form=${solicitud}</td>
-                                <td><a href="#" download="Estructura_Form_${solicitud}.txt">Exportar</a></td>                        
+                                <td><a href="ExportarForm?id_form=${solicitud}">Exportar</a></td>                        
                             </tr>
                         </c:forEach>
                     </table>             

@@ -133,6 +133,8 @@ db.formularios(
 "REGISTRO" : "a ver que pedo"
 "REGISTRO" : "enviando datos"
 "REGISTRO" : "33333333"
+"REGISTRO" : "godofredo"
+"REGISTRO" : "titlandlflddlmf"
 }
 {
 "NOMBRE_CAMPO" : "device",
@@ -154,6 +156,8 @@ db.formularios(
 "REGISTRO" : "ara ara"
 "REGISTRO" : "ara ara"
 "REGISTRO" : "mas coas"
+"REGISTRO" : "ara ara"
+"REGISTRO" : "ara ara"
 }
 {
 "NOMBRE_CAMPO" : "solo",
@@ -165,6 +169,7 @@ db.formularios(
 "REGISTRO" : "uuuu"
 "REGISTRO" : "lknknknknknkn"
 "REGISTRO" : "descripcion"
+"REGISTRO" : "solo desc"
 }
 {
 "NOMBRE_CAMPO" : "check",
@@ -176,6 +181,7 @@ db.formularios(
 "REGISTRO" : "carro"
 "REGISTRO" : "carro"
 "REGISTRO" : "carro"
+"REGISTRO" : " carro"
 }
 {
 "NOMBRE_CAMPO" : "ficha",
@@ -192,11 +198,15 @@ db.formularios(
 "REGISTRO" : "xbox serie X"
 "REGISTRO" : "la consola mas mamalona que ha existido"
 "REGISTRO" : "switch"
+"REGISTRO" : "la consola mas mamalona que ha existido"
+"REGISTRO" : "xbox serie X"
 }
 {
 "NOMBRE_CAMPO" : "oket",
 "REGISTRO" : "voy"
 "REGISTRO" : "jdljsljfld"
+"REGISTRO" : "jdljsljfld"
+"REGISTRO" : "voy"
 }
 )
 ]
@@ -276,7 +286,7 @@ db.formularios(
 "ID_FORMULARIO" : "$form9",
 "TITULO" : "Formulario de un id mas mas grande",
 "NOMBRE" : "formulario_encuesta_4",
-"TEMA" : "dark",
+"TEMA" : "violet",
 "USUARIO_CREACION" : "admin",
 "FECHA_CREACION" : "2021-03-27",
 "ESTRUCTURA" : (
