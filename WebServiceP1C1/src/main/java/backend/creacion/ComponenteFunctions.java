@@ -109,6 +109,21 @@ public class ComponenteFunctions {
                 if (verificarNull(componente1.getRequerido())) {
                     componente.setRequerido(componente1.getRequerido());
                 }
+                if (verificarNull(componente1.getUrl())) {
+                    componente.setUrl(componente1.getUrl());
+                }
+                if (verificarNull(componente1.getFilas())) {
+                    componente.setFilas(componente1.getFilas());
+                }
+                if (verificarNull(componente1.getColumnas())) {
+                    componente.setColumnas(componente1.getColumnas());
+                }
+                if (verificarNull(componente1.getNombreCampo())) {
+                    componente.setNombreCampo(componente1.getNombreCampo());
+                }
+                if (verificarNull(componente1.getOpciones())) {
+                    componente.setOpciones(componente1.getOpciones());
+                }
                 if (verificarNull(componente1.getIndice())) {
                     if (!componente.getIndice().equalsIgnoreCase(componente1.getIndice())) {
                         int indexNew = Integer.parseInt(componente1.getIndice());

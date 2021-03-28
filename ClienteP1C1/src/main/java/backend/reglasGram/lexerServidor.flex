@@ -1,14 +1,5 @@
-/*codigo de usuario*/
-package backend.reglasGram;
-import backend.objetos.*;
-import java_cup.runtime.*;
-import static backend.reglasGram.symIndigo.*;
-import java.util.ArrayList;
-import java.util.List;
-
-%%
 /*configuracion*/
-%class LexerIndigo
+%class LexerServidor
 %public
 %unicode
 %line
@@ -18,7 +9,7 @@ decimal=[1-9][0-9]*[.]{entero}| [0][.]{entero}
 entero=[0-9]+
 number = ({entero}|{decimal})
 letra = [a-zA-Z]
-string = ({letra}|{number}|[_]|[-]|[$]|[\.])+
+string = ({letra}|{number}|[_]|[-]|[$])+
 stringSpace =({letra}|{number})+({string}|{whiteSpace})*
 cont_consulta = ( "\"SELECT" | "\"" + {whiteSpace} + "SELECT" ) {consulta} ( "]\"" | "]" + {whiteSpace} + "\"" )
 consulta       = ( [^\]] |"]"+ [^ \f\t\r\n\]\"] | "]"+ ({whiteSpace}) [^\]\"] )*
@@ -26,10 +17,7 @@ consulta_N = ("CONSULTA")[-]({entero})
 CONT_ID = ([$]|[_]|[-])({letra}|{number}|[$]|[-]|[_])+
 cont_opciones = (({stringSpace}|{string})("|")({whiteSpace})?)+({stringSpace}|{string})
 
-cont_url =({path_relativo}|{http}|{https})?([\\\/])?(({stringSpace})[\\\/])+({stringSpace})?
-http = ("http:/")
-https = ("https:/")
-path_relativo = (({letra})(":"))
+cont_url = (({stringSpace}|".."|[:])?[/\\])*({stringSpace}("."){letra})
 
 ini_solicitudes = {ini_solicitud}[eE][sS]
 ini_solicitud = [iI][nN][iI][_][sS][oO][lL][iI][cC][iI][tT][uU][dD]
@@ -86,10 +74,6 @@ whiteSpace     = {lineTerminator} | [ \t\f]
 <YYINITIAL> {fin_solicitud}				{return new Symbol(FIN_SOLICITUD,yyline+1,yycolumn+1, new Token(yytext(),yyline+1,yycolumn+1));}
 <YYINITIAL> {fin_solicitudes}			{return new Symbol(FIN_SOLICITUDES,yyline+1,yycolumn+1, new Token(yytext(),yyline+1,yycolumn+1));}
 
-<YYINITIAL> {http}						{}
-<YYINITIAL> {https}						{}
-<YYINITIAL> {path_relativo}				{}
-
 
 
 <YYINITIAL>{
@@ -119,4 +103,3 @@ whiteSpace     = {lineTerminator} | [ \t\f]
 
 /* error */
     [^]                              	{estructuraError(yytext(),yyline+1,yycolumn+1);}
-

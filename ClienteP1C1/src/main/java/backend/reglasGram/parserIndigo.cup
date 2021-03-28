@@ -288,9 +288,10 @@ cont_opciones ::=	COMILLAS CONT_OPCIONES:co COMILLAS						{:RESULT = co; :}
 					;
 
 url ::= 				COMILLAS URL:u COMILLAS								{:RESULT = u; :}			
-					
+						
 						;
-cont_url ::= 	COMILLAS CONT_URL:u COMILLAS								{:RESULT = u; :}			
+cont_url ::= 	COMILLAS CONT_URL:u COMILLAS								{:RESULT = u; :}		
+				|cont_string_spaces:ss										{:RESULT = ss; :}	
 				;
 
 

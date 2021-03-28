@@ -21,36 +21,23 @@ db.formularios(
 "URL" : "null"
 }
 {
-"ID" : "$_radio",
-"NOMBRE_CAMPO" : "device",
-"CLASE" : "RADIO",
-"INDICE" : "2",
-"TEXTO_VISIBLE" : "elija una opcion",
-"ALINEACION" : "DERECHA",
-"REQUERIDO" : "SI",
-"OPCIONES" : "computadora | me va a escuchar | que si da hombre|mas coas|y asi|ara ara",
-"FILAS" : "null",
-"COLUMNAS" : "null",
-"URL" : "null"
-}
-{
 "ID" : "$_text_area",
 "NOMBRE_CAMPO" : "solo",
 "CLASE" : "AREA_TEXTO",
-"INDICE" : "3",
+"INDICE" : "2",
 "TEXTO_VISIBLE" : "desc ",
 "ALINEACION" : "CENTRO",
 "REQUERIDO" : "NO",
 "OPCIONES" : "null",
-"FILAS" : "0",
-"COLUMNAS" : "0",
+"FILAS" : "10",
+"COLUMNAS" : "20",
 "URL" : "null"
 }
 {
 "ID" : "$_check",
 "NOMBRE_CAMPO" : "check",
 "CLASE" : "CHECKBOX",
-"INDICE" : "4",
+"INDICE" : "3",
 "TEXTO_VISIBLE" : "elija una alGO",
 "ALINEACION" : "CENTRO",
 "REQUERIDO" : "no",
@@ -63,7 +50,7 @@ db.formularios(
 "ID" : "$_fichero",
 "NOMBRE_CAMPO" : "ficha",
 "CLASE" : "FICHERO",
-"INDICE" : "5",
+"INDICE" : "4",
 "TEXTO_VISIBLE" : "imagen",
 "ALINEACION" : "CENTRO",
 "REQUERIDO" : "no",
@@ -76,7 +63,7 @@ db.formularios(
 "ID" : "$_combo",
 "NOMBRE_CAMPO" : "selecciona",
 "CLASE" : "COMBO",
-"INDICE" : "6",
+"INDICE" : "5",
 "TEXTO_VISIBLE" : "selecciona algo",
 "ALINEACION" : "CENTRO",
 "REQUERIDO" : "SI",
@@ -86,14 +73,27 @@ db.formularios(
 "URL" : "null"
 }
 {
-"ID" : "$_radio2",
-"NOMBRE_CAMPO" : "oket",
+"ID" : "$_img",
+"NOMBRE_CAMPO" : "null",
+"CLASE" : "IMAGEN",
+"INDICE" : "6",
+"TEXTO_VISIBLE" : "imagen",
+"ALINEACION" : "CENTRO",
+"REQUERIDO" : "SI",
+"OPCIONES" : "null",
+"FILAS" : "5",
+"COLUMNAS" : "null",
+"URL" : "https://www.w3schools.com/images/lamp.jpg"
+}
+{
+"ID" : "$_radio",
+"NOMBRE_CAMPO" : "device",
 "CLASE" : "RADIO",
-"INDICE" : "2",
+"INDICE" : "7",
 "TEXTO_VISIBLE" : "elija una opcion",
 "ALINEACION" : "DERECHA",
 "REQUERIDO" : "SI",
-"OPCIONES" : "jeje|voy|jdljsljfld",
+"OPCIONES" : "Guatemala | El Salvador|Honduras| OTRO",
 "FILAS" : "null",
 "COLUMNAS" : "null",
 "URL" : "null"
@@ -102,7 +102,7 @@ db.formularios(
 "ID" : "$_buton",
 "NOMBRE_CAMPO" : "null",
 "CLASE" : "BOTON",
-"INDICE" : "7",
+"INDICE" : "8",
 "TEXTO_VISIBLE" : "Aceptar",
 "ALINEACION" : "CENTRO",
 "REQUERIDO" : "SI",
@@ -135,6 +135,8 @@ db.formularios(
 "REGISTRO" : "33333333"
 "REGISTRO" : "godofredo"
 "REGISTRO" : "titlandlflddlmf"
+"REGISTRO" : "eee"
+"REGISTRO" : "dffd"
 }
 {
 "NOMBRE_CAMPO" : "device",
@@ -158,6 +160,8 @@ db.formularios(
 "REGISTRO" : "mas coas"
 "REGISTRO" : "ara ara"
 "REGISTRO" : "ara ara"
+"REGISTRO" : "computadora "
+"REGISTRO" : "que si da hombre"
 }
 {
 "NOMBRE_CAMPO" : "solo",
@@ -170,6 +174,8 @@ db.formularios(
 "REGISTRO" : "lknknknknknkn"
 "REGISTRO" : "descripcion"
 "REGISTRO" : "solo desc"
+"REGISTRO" : "sdsdsds"
+"REGISTRO" : "dfdfd"
 }
 {
 "NOMBRE_CAMPO" : "check",
@@ -181,7 +187,9 @@ db.formularios(
 "REGISTRO" : "carro"
 "REGISTRO" : "carro"
 "REGISTRO" : "carro"
-"REGISTRO" : " carro"
+"REGISTRO" : "carro"
+"REGISTRO" : "moto "
+"REGISTRO" : "carro"
 }
 {
 "NOMBRE_CAMPO" : "ficha",
@@ -189,6 +197,8 @@ db.formularios(
 "REGISTRO" : "formstxt"
 "REGISTRO" : "formstxt"
 "REGISTRO" : "Bloc de notas de sergio rolando url"
+"REGISTRO" : "forms.txt"
+"REGISTRO" : "Minitab2doParcial.mpx"
 }
 {
 "NOMBRE_CAMPO" : "selecciona",
@@ -200,6 +210,8 @@ db.formularios(
 "REGISTRO" : "switch"
 "REGISTRO" : "la consola mas mamalona que ha existido"
 "REGISTRO" : "xbox serie X"
+"REGISTRO" : "ps5"
+"REGISTRO" : "la consola mas mamalona que ha existido"
 }
 {
 "NOMBRE_CAMPO" : "oket",
@@ -207,6 +219,8 @@ db.formularios(
 "REGISTRO" : "jdljsljfld"
 "REGISTRO" : "jdljsljfld"
 "REGISTRO" : "voy"
+"REGISTRO" : "jeje"
+"REGISTRO" : "jdljsljfld"
 }
 )
 ]

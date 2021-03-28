@@ -18,11 +18,14 @@ entero=[0-9]+
 number = ({entero}|{decimal})
 letra = [a-zA-Z]
 
-string = ({letra}|{number}|[_]|[-]|[$])+
+string = ({letra}|{number}|[_]|[-]|[$]|[\.])+
 stringSpace =({letra}|{number})+({string}|{whiteSpace})*
 CONT_ID = ([$]|[_]|[-])({letra}|{number}|[$]|[-]|[_])+
 cont_opciones = (({stringSpace}|{string})("|")({whiteSpace})?)+({stringSpace}|{string})
-cont_url = (({stringSpace}|".."|[:])?[/\\])*({stringSpace}("."){letra})
+cont_url =({path_relativo}|{http}|{https})?([\\\/])?(({stringSpace})[\\\/])+({stringSpace})?
+http = ("http:/")
+https = ("https:/")
+path_relativo = (({letra})(":"))
 
 allStrings = ({string}|{stringSpace}|{CONT_ID}|{cont_opciones}|{cont_url})
 
@@ -60,6 +63,10 @@ whiteSpace     = {lineTerminator} | [ \t\f]
 <YYINITIAL> "COLUMNAS"					{return new Symbol(COLUMNAS,yyline+1,yycolumn+1, new Token(yytext(),yyline+1,yycolumn+1 )); }
 <YYINITIAL> "URL"						{return new Symbol(URL,yyline+1,yycolumn+1, new Token(yytext(),yyline+1,yycolumn+1 )); }
 <YYINITIAL> "REGISTRO"					{return new Symbol(REGISTRO,yyline+1,yycolumn+1, new Token(yytext(),yyline+1,yycolumn+1 )); }
+
+<YYINITIAL> {http}						{}
+<YYINITIAL> {https}						{}
+<YYINITIAL> {path_relativo}				{}
 
 
 

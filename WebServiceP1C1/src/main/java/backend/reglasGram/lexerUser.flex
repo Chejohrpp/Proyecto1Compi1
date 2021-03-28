@@ -17,7 +17,7 @@ decimal=[1-9][0-9]*[.]{entero}| [0][.]{entero}
 entero=[0-9]+
 number = ({entero}|{decimal})
 letra = [a-zA-Z]
-string = ({letra}|{number}|[_]|[-]|[$]|("/"))+
+string = ({letra}|{number}|[_]|[-]|[$]|[\.])+
 lineTerminator = \r|\n|\r\n
 whiteSpace     = {lineTerminator} | [ \t\f]
 
