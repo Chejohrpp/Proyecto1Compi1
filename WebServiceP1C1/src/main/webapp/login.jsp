@@ -9,12 +9,13 @@
          <link rel="styleSheet" href="estilos/estiloLogin.css">
     </head>
     <body>
+        <%@include file="barraNav.jsp" %>
         <div class="caja">
             <h2>Inicio de Sesion</h2>            
             <c:if test="${success == 0}">
             <label id="error" style="color:red;text-align: center">Usuario o Contraseña Incorrecto</label>            
             </c:if>
-            <form action="#" method="POST">
+            <form action="Login" method="POST">
                     <%--Nombre de usuario--%>
                     <label for="usuario">Usuario</label>
                     <input type="text" name="user" placeholder="Usuario">
