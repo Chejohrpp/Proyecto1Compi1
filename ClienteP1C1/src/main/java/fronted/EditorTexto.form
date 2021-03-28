@@ -126,6 +126,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuEnviarServidor">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="INSERT"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Enviar Solicitud"/>
               </Properties>
               <Events>

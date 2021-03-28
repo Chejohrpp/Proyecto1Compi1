@@ -104,7 +104,11 @@ public class conectionAPC extends HttpServlet {
 
             JSONObject jsonLoginVerificar = new JSONObject();
             if (login == null) {
-                jsonLoginVerificar.put("USUARIO", "null");
+                if (userNameSesion != null) {
+                    jsonLoginVerificar.put("USUARIO", userNameSesion);
+                }else{
+                    jsonLoginVerificar.put("USUARIO", "null");
+                }
             }else{                    
                 jsonLoginVerificar.put("USUARIO", login.getUserName());
                 jsonLoginVerificar.put("PASSWORD", login.getPassword());
@@ -118,7 +122,13 @@ public class conectionAPC extends HttpServlet {
                 arrayRespuesta.put("Se inicio sesion con el usuario  " + userNameSesion);
             }
         }catch (JSONException e) {
-          //System.out.println("error en el json de login: " + e.getMessage());
+            JSONObject jsonLoginVerificar = new JSONObject();
+            if (userNameSesion != null) {
+                jsonLoginVerificar.put("USUARIO", userNameSesion);
+            }else{
+                jsonLoginVerificar.put("USUARIO", "null");
+            }            
+            jsonResponse.put("LOGIN_USUARIO", jsonLoginVerificar);
         }
     }
     private boolean addUsers(JSONObject jsonObject){
@@ -437,7 +447,10 @@ public class conectionAPC extends HttpServlet {
             respuestas += "<!FIN_RESPUESTA>\n  ";
                        
         }catch (JSONException e) {
-              //System.out.println("error en el json de respuesta: " + e.getMessage());
+            respuestas += "<!ini_respuesta: \"LOGIN_USUARIO\">\n  ";
+            respuestas += "{ \"BLOQUE\" : [{ \n  ";
+            respuestas += "\"USUARIO\" : \"null\"\n  }]}\n";
+            respuestas += "<!FIN_RESPUESTA>\n  ";
         }        
         try{
             JSONArray arrayRespuesta = jsonResponse.getJSONArray("RESPUESTAS");

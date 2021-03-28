@@ -190,6 +190,7 @@ public class EditorTexto extends javax.swing.JFrame {
 
         menuServidor.setText("Servidor");
 
+        menuEnviarServidor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_INSERT, 0));
         menuEnviarServidor.setText("Enviar Solicitud");
         menuEnviarServidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

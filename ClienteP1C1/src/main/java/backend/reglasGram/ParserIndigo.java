@@ -1031,7 +1031,7 @@ class CUP$ParserIndigo$actions {
           case 63: // bloque_usuario ::= LLAI parametros_usuario LLAD 
             {
               Token RESULT =null;
-
+		listaParametros.add(new Parametro(null,null));
               CUP$ParserIndigo$result = parser.getSymbolFactory().newSymbol("bloque_usuario",25, ((java_cup.runtime.Symbol)CUP$ParserIndigo$stack.elementAt(CUP$ParserIndigo$top-2)), ((java_cup.runtime.Symbol)CUP$ParserIndigo$stack.peek()), RESULT);
             }
           return CUP$ParserIndigo$result;
@@ -1040,7 +1040,7 @@ class CUP$ParserIndigo$actions {
           case 64: // bloque_formulario ::= LLAI parametros_formulario LLAD 
             {
               Token RESULT =null;
-
+		listaParametros.add(new Parametro(null,null));
               CUP$ParserIndigo$result = parser.getSymbolFactory().newSymbol("bloque_formulario",26, ((java_cup.runtime.Symbol)CUP$ParserIndigo$stack.elementAt(CUP$ParserIndigo$top-2)), ((java_cup.runtime.Symbol)CUP$ParserIndigo$stack.peek()), RESULT);
             }
           return CUP$ParserIndigo$result;
@@ -1049,7 +1049,7 @@ class CUP$ParserIndigo$actions {
           case 65: // bloque_componente ::= LLAI parametros_componente LLAD 
             {
               Token RESULT =null;
-
+		listaParametros.add(new Parametro(null,null));
               CUP$ParserIndigo$result = parser.getSymbolFactory().newSymbol("bloque_componente",27, ((java_cup.runtime.Symbol)CUP$ParserIndigo$stack.elementAt(CUP$ParserIndigo$top-2)), ((java_cup.runtime.Symbol)CUP$ParserIndigo$stack.peek()), RESULT);
             }
           return CUP$ParserIndigo$result;
@@ -1058,7 +1058,7 @@ class CUP$ParserIndigo$actions {
           case 66: // bloque_consulta ::= LLAI parametros_consulta LLAD 
             {
               Token RESULT =null;
-
+		listaParametros.add(new Parametro(null,null));
               CUP$ParserIndigo$result = parser.getSymbolFactory().newSymbol("bloque_consulta",28, ((java_cup.runtime.Symbol)CUP$ParserIndigo$stack.elementAt(CUP$ParserIndigo$top-2)), ((java_cup.runtime.Symbol)CUP$ParserIndigo$stack.peek()), RESULT);
             }
           return CUP$ParserIndigo$result;

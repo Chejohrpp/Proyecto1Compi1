@@ -40,8 +40,6 @@ public class Analizador {
     //variables
     private String texto;
     private String userNameSesion;
-    //int cantLogin = 0;
-    //int cantSolicitud = 0;
     //objetos visuales
     private JTextArea txtRespuesta;
     //listados
@@ -49,12 +47,6 @@ public class Analizador {
     private List<LosErrores> erroresSintacticos;
     private List<LosErrores> erroresLexicos;
     private List<LosErrores> errores;
-    //private List<Solicitud> solicitudes;
-    //jsonObjects
-    //private JSONArray arrayRequest = new JSONArray();    
-    
-    //private JSONObject jsonLogin = new JSONObject();
-    
     //funciones
     private UsuarioModel usuarioModel;
     private FormularioModel formularioModel;
@@ -100,7 +92,17 @@ public class Analizador {
         for (int i = 0; i < listaParametros.size() ; i++) {    
             if (listaParametros.get(i).getCont() == null) {
                 try{
-                    solicitud = listaParametros.get(i).getKey().getLexema(); 
+                    if (listaParametros.get(i).getKey() == null) {
+                        if (listaParametros.size() == (i+1)) {
+                            break;
+                        }
+                        if (listaParametros.get(i+1).getCont() == null) {
+                            solicitud = listaParametros.get(i+1).getKey().getLexema();
+                            i++;
+                        }
+                    }else{
+                        solicitud = listaParametros.get(i).getKey().getLexema();
+                    }                     
                 }catch(Exception e){
                     System.out.println("error en la solicitud: " + e.getMessage());
                 }                           
@@ -210,33 +212,7 @@ public class Analizador {
                 .build();        
         HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString());        
-        //System.out.println(response.body());
         getRespuestasServer(response.body());
-        
-        /*JSONObject jsonRespuestas  = new JSONObject(response.body());        
-        try{
-            JSONObject login = jsonRespuestas.getJSONObject("LOGIN_USUARIO");
-            String userName = login.getString("USUARIO");
-            if (!userName.equals("null")) {
-                userNameSesion = userName;
-                formularioModel.setUserName(userNameSesion);
-            }else{
-                System.out.println("No hay usuario");
-                userNameSesion = null;                
-            }            
-        }catch (JSONException e) {
-              //System.out.println("error en el json de respuesta: " + e.getMessage());
-        }
-        
-        try{
-            JSONArray arrayRespuesta = jsonRespuestas.getJSONArray("RESPUESTAS");
-            for (int i = 0; i < arrayRespuesta.length(); i++) {
-                String respuesta = arrayRespuesta.getString(i);
-                txtRespuesta.setText(txtRespuesta.getText() +  respuesta + "\n");                
-            }
-        }catch(Exception e){
-            System.out.println("Error en recibir las respuestas: " + e.getMessage());
-        }*/
     }
     
     public String getUserNameSesion(){
