@@ -12,14 +12,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java.util.Enumeration;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +34,6 @@ public class conectionAPC extends HttpServlet {
     private UsuarioFunctions funUser = new UsuarioFunctions(almacenamiento.getUsuarios()); 
     private FormularioFunctions funForm = new FormularioFunctions(almacenamiento.getForms());
     private JSONArray arrayRespuesta =  new JSONArray();
-    private int cantRespuestas = 0;
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -81,7 +76,7 @@ public class conectionAPC extends HttpServlet {
             jsonResponse.put("RESPUESTAS", arrayRespuesta);
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
-                out.println(jsonResponse.toString());            
+                out.println(generarEstructuraRespuestas(jsonResponse));            
             }           
         } catch (JSONException e) {
             System.out.println("error en el json: " + e.getMessage());
@@ -120,7 +115,7 @@ public class conectionAPC extends HttpServlet {
             if (login == null) {
                 arrayRespuesta.put("Los parametros del inicio de " + UserName + " son invalidos");                
             }else{
-                arrayRespuesta.put("Se inicio sesion con el usuario: " + userNameSesion);
+                arrayRespuesta.put("Se inicio sesion con el usuario  " + userNameSesion);
             }
         }catch (JSONException e) {
           //System.out.println("error en el json de login: " + e.getMessage());
@@ -130,7 +125,7 @@ public class conectionAPC extends HttpServlet {
         try{
             JSONArray jsonArray = (JSONArray) jsonObject.get("CREAR_USUARIO");
             if (userNameSesion == null && jsonArray.length() > 0) {
-                 arrayRespuesta.put("Error: No se pueden crear usuarios, no hay una sesion iniciada");
+                 arrayRespuesta.put("Error al crear usuarios. No hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length() ; i++) {
@@ -142,10 +137,10 @@ public class conectionAPC extends HttpServlet {
                 Usuario newUser = new Usuario(user,pass,fecha_creacion,fecha_mod);
                 boolean seCreo = funUser.addUser(newUser);            
                 if (seCreo) {
-                    arrayRespuesta.put("Se creo el nuevo usuario: " + user);
+                    arrayRespuesta.put("Se creo el nuevo usuario " + user);
                     almacenamiento.setUsuarios(funUser.getListaUsuarios());
                 }else{
-                    arrayRespuesta.put("Error, el usuario : " + user + " esta repetido");
+                    arrayRespuesta.put("Error en el usuario  " + user + " esta repetido");
                 }
             }            
         }catch(Exception e){            
@@ -157,17 +152,17 @@ public class conectionAPC extends HttpServlet {
         try{
             JSONArray jsonArray = (JSONArray) jsonObject.get("ELIMINAR_USUARIOS");
             if (userNameSesion == null && jsonArray.length() > 0) {
-                 arrayRespuesta.put("Error: No se pueden eliminar usuarios, no hay una sesion iniciada");
+                 arrayRespuesta.put("Error al eliminar usuarios. No hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {
                 String id = jsonArray.getString(i);
                 boolean eliminado = funUser.EliminarUser(new Usuario(id,null,null,null));
                 if (eliminado) {
-                    arrayRespuesta.put("Se elimino el usuario: " + id);
+                    arrayRespuesta.put("Se elimino el usuario " + id);
                     almacenamiento.setUsuarios(funUser.getListaUsuarios());
                 }else{
-                     arrayRespuesta.put("Error, el usuario : " + id  + " no fue eliminado");
+                     arrayRespuesta.put("Error en el usuario " + id  + " no fue eliminado");
                 }
             }
         }catch(Exception e){
@@ -181,7 +176,7 @@ public class conectionAPC extends HttpServlet {
         try{
         JSONArray jsonArray = (JSONArray) jsonObject.get("MODIFICAR_USUARIOS");
         if (userNameSesion == null && jsonArray.length() > 0) {
-                arrayRespuesta.put("Error: No se puede modificar usuarios, no hay una sesion iniciada");
+                arrayRespuesta.put("Error al modificar usuarios. No hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -192,7 +187,7 @@ public class conectionAPC extends HttpServlet {
                 String fechaMod = jsonUser.getString("FECHA_MODIFICACION");
                 boolean modificado = funUser.setUser(userOld, new Usuario(user,pass,null,fechaMod));
                 if (modificado) {
-                    arrayRespuesta.put("Se modificaron los datos del usuario: " + userOld);
+                    arrayRespuesta.put("Se modificaron los datos del usuario " + userOld);
                     funForm.modUserNameForm(userOld, user);
                     almacenamiento.setUsuarios(funUser.getListaUsuarios());
                     almacenamiento.setForms(funForm.getListaForms());
@@ -211,7 +206,7 @@ public class conectionAPC extends HttpServlet {
         try{
             JSONArray jsonArray = (JSONArray) jsonObject.get("NUEVO_FORMS");
             if (userNameSesion == null && jsonArray.length() > 0) {
-                 arrayRespuesta.put("Error: No se puede crear los formularios, no hay una sesion iniciada");
+                 arrayRespuesta.put("Error al crear los formularios. No hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -225,10 +220,10 @@ public class conectionAPC extends HttpServlet {
                 Formulario form = new Formulario(id,titulo,nombre,tema,VerUserName(user),fecha);
                 boolean add = funForm.addForm(form);
                 if (add) {
-                    arrayRespuesta.put("Se creo el formulario: " + id);
+                    arrayRespuesta.put("Se creo el formulario " + id);
                     almacenamiento.setForms(funForm.getListaForms());
                 }else{
-                    arrayRespuesta.put("Error, el id formulario : " + id + " esta repetido");
+                    arrayRespuesta.put("Error al crear el formulario " + id + " esta repetido");
                 }                
             }
         }catch(Exception e){
@@ -247,17 +242,17 @@ public class conectionAPC extends HttpServlet {
         try{
             JSONArray jsonArray = (JSONArray) jsonObject.get("ELIMINAR_FORMS");
             if (userNameSesion == null && jsonArray.length() > 0) {
-                 arrayRespuesta.put("Error: No se pueden eliminar formularios, no hay una sesion iniciada");
+                 arrayRespuesta.put("Error al eliminar formularios. No hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {                
                 String id = jsonArray.getString(i);
                 boolean add = funForm.eliminarForm(id);
                 if (add) {
-                    arrayRespuesta.put("Se elimino el formulario: " + id);
+                    arrayRespuesta.put("Se elimino el formulario " + id);
                     almacenamiento.setForms(funForm.getListaForms());
                 }else{
-                    arrayRespuesta.put("Error, el formulario : " + id + " no se pudo eliminar");
+                    arrayRespuesta.put("Error en el formulario  " + id + " no se pudo eliminar");
                 }                
             }
         }catch(Exception e){
@@ -271,7 +266,7 @@ public class conectionAPC extends HttpServlet {
         try{
             JSONArray jsonArray = (JSONArray) jsonObject.get("MODIFICAR_FORMS");
             if (userNameSesion == null && jsonArray.length() > 0) {
-                 arrayRespuesta.put("Error: No se puede modificar los formularios, no hay una sesion iniciada");
+                 arrayRespuesta.put("Error al modificar los formularios. no hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -283,10 +278,10 @@ public class conectionAPC extends HttpServlet {
                 Formulario form = new Formulario(id,titulo,nombre,tema,null,null);
                 boolean add = funForm.modForm(form);
                 if (add) {
-                    arrayRespuesta.put("Se modifico el formulario: " + id);
+                    arrayRespuesta.put("Se modifico el formulario " + id);
                     almacenamiento.setForms(funForm.getListaForms());
                 }else{
-                    arrayRespuesta.put("Error, el formulario : " + id + " no se logro modificar");
+                    arrayRespuesta.put("Error en el formulario  " + id + " no se logro modificar");
                 }                
             }
         }catch(Exception e){
@@ -300,7 +295,7 @@ public class conectionAPC extends HttpServlet {
         try{
             JSONArray jsonArray = (JSONArray) jsonObject.get("AGREGAR_COMP");
             if (userNameSesion == null && jsonArray.length() > 0) {
-                 arrayRespuesta.put("Error: No se pueden agregar componentes, no hay una sesion iniciada");
+                 arrayRespuesta.put("Error al agregar componentes. No hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -310,7 +305,7 @@ public class conectionAPC extends HttpServlet {
                     String id = jsonComp.getString("ID");
                     Formulario formulario = funForm.getFormulario(form);
                     if (formulario == null) {
-                        arrayRespuesta.put("Error al agregar el componente: " +id +" No se encotro el formulario especificado");
+                        arrayRespuesta.put("Error al agregar el componente " +id +". No se encotro el formulario especificado");
                         break;
                     }
                     ComponenteFunctions funComponente = new ComponenteFunctions(formulario.getListaComponentes());                        
@@ -327,18 +322,18 @@ public class conectionAPC extends HttpServlet {
                     Componente componete = new Componente(id,nombreCampo,clase,indice,textoVisible,alineacion,requerido,opciones,filas, columnas,url);
                     boolean add = funComponente.addComponente(componete);
                     if (add) {
-                        arrayRespuesta.put("Se agrego el componente: " + id + " al formulario: " + form) ;
+                        arrayRespuesta.put("Se agrego el componente  " + id + " al formulario " + form) ;
                         formulario.setListaComponentes(funComponente.getListaComponente());
                         funForm.modListaComp(formulario);
                         almacenamiento.setForms(funForm.getListaForms());
                     }else{
-                        arrayRespuesta.put("Error, el componente : " + id + " esta repetido");
+                        arrayRespuesta.put("Error al agregar el componente  " + id + " esta repetido");
                     }
                     break;
                 }                
             }
         }catch(Exception e){
-            System.out.println("error en agregar componente: " + e.getMessage());
+            System.out.println("error en agregar componente " + e.getMessage());
         }
         
         return true;
@@ -355,7 +350,7 @@ public class conectionAPC extends HttpServlet {
         try{
             JSONArray jsonArray = (JSONArray) jsonObject.get("ELIMINAR_COMP");
             if (userNameSesion == null && jsonArray.length() > 0) {
-                 arrayRespuesta.put("Error: No se pueden eliminar componentes, no hay una sesion iniciada");
+                 arrayRespuesta.put("Error al eliminar componentes. No hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -365,18 +360,18 @@ public class conectionAPC extends HttpServlet {
                     String id = jsonComp.getString("ID");
                     Formulario formulario = funForm.getFormulario(form);
                     if (formulario == null) {
-                        arrayRespuesta.put("Error: No se encotro el formulario especificado para el componente: " + id);
+                        arrayRespuesta.put("Error al elimnar el componente " +id +". No se encotro el formulario especificado");
                         break;
                     }
                     ComponenteFunctions funComponente = new ComponenteFunctions(formulario.getListaComponentes());                   
                     boolean add = funComponente.eliminarComponente(id);
                     if (add) {
-                        arrayRespuesta.put("Se elimino el componente: " + id + " al formulario: " + form) ;
+                        arrayRespuesta.put("Se elimino el componente " + id + " del formulario " + form) ;
                         formulario.setListaComponentes(funComponente.getListaComponente());
                         funForm.modListaComp(formulario);
                         almacenamiento.setForms(funForm.getListaForms());
                     }else{
-                        arrayRespuesta.put("Error, el componente : " + id + " no se logro eliminar");
+                        arrayRespuesta.put("Error en el componente : " + id + " no se logro eliminar");
                     }
 
                     break;
@@ -393,7 +388,7 @@ public class conectionAPC extends HttpServlet {
         try{
             JSONArray jsonArray = (JSONArray) jsonObject.get("MODIFICAR_COMP");
             if (userNameSesion == null && jsonArray.length() > 0) {
-                 arrayRespuesta.put("Error: No se pueden modificar componentes, no hay una sesion iniciada");
+                 arrayRespuesta.put("Error al modificar componentes. No hay una sesion iniciada");
                 return false;
             }
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -403,7 +398,7 @@ public class conectionAPC extends HttpServlet {
                     String id = jsonComp.getString("ID");
                     Formulario formulario = funForm.getFormulario(form);
                     if (formulario == null) {
-                        arrayRespuesta.put("Error al modificar el componente:"+ id + " No se encotro el formulario especificado");
+                        arrayRespuesta.put("Error al modificar el componente "+ id + " No se encotro el formulario especificado");
                         break;
                     }
                     ComponenteFunctions funComponente = new ComponenteFunctions(formulario.getListaComponentes());                  
@@ -430,6 +425,34 @@ public class conectionAPC extends HttpServlet {
             System.out.println("error en modificar componente: " + e.getMessage());
         }        
         return true;        
+    }
+    private String generarEstructuraRespuestas(JSONObject jsonResponse){        
+        String respuestas = "<!INI_RESPUESTAS>\n";
+        try{
+            JSONObject login = jsonResponse.getJSONObject("LOGIN_USUARIO");
+            String userName = login.getString("USUARIO");
+            respuestas += "<!ini_respuesta: \"LOGIN_USUARIO\">\n  ";
+            respuestas += "{ \"BLOQUE\" : [{ \n  ";
+            respuestas += "\"USUARIO\" : \"" + userName + "\"\n  }]}\n";
+            respuestas += "<!FIN_RESPUESTA>\n  ";
+                       
+        }catch (JSONException e) {
+              //System.out.println("error en el json de respuesta: " + e.getMessage());
+        }        
+        try{
+            JSONArray arrayRespuesta = jsonResponse.getJSONArray("RESPUESTAS");
+            for (int i = 0; i < arrayRespuesta.length(); i++) {
+                String respuesta = arrayRespuesta.getString(i);
+                respuestas += "<!ini_respuesta: \"RESPUESTA_SERVIDOR\">\n  ";
+                respuestas += "{ \"BLOQUE\" : [{ \n  ";
+                respuestas += "\"RESPUESTA\" : \"" + respuesta + "\"\n  }]}\n";
+                respuestas += "<!FIN_RESPUESTA>\n  ";                                
+            }
+        }catch(Exception e){
+            System.out.println("Error en recibir las respuestas: " + e.getMessage());
+        }
+        respuestas += "<!FIN_RESPUESTAS>";
+        return respuestas;
     }
 
 }

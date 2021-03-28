@@ -58,7 +58,7 @@ public class ComponenteFunctions {
                             if (!componente1.getNombreCampo().equals("null")) {
                                 componente.setNombreCampo(componente1.getNombreCampo());
                             }else if(componente.getNombreCampo().equals("null")){
-                                return "Error en el componente: " + componente.getId() + " no hay una NOMBRE_CAMPO";
+                                return "Error en el componente " + componente.getId() + ". No hay una NOMBRE_CAMPO";
                             }
                             break;
                         }
@@ -66,7 +66,7 @@ public class ComponenteFunctions {
                             if (!componente1.getNombreCampo().equals("null")) {
                                 componente.setNombreCampo(componente1.getNombreCampo());
                             }else if(componente.getNombreCampo().equals("null")){
-                                return "Error en el componente: " + componente.getId() + " no hay una NOMBRE_CAMPO";
+                                return "Error en el componente " + componente.getId() + ". No hay una NOMBRE_CAMPO";
                             }
                             if (!componente1.getFilas().equals("null")) {
                                 componente.setFilas(componente1.getFilas());
@@ -80,12 +80,12 @@ public class ComponenteFunctions {
                             if (!componente1.getNombreCampo().equals("null")) {
                                 componente.setNombreCampo(componente1.getNombreCampo());
                             }else if(componente.getNombreCampo().equals("null")){
-                                return "Error en el componente: " + componente.getId() + " no hay una NOMBRE_CAMPO";
+                                return "Error en el componente " + componente.getId() + ". No hay una NOMBRE_CAMPO";
                             }
                             if (!componente1.getOpciones().equals("null")) {
                                 componente.setOpciones(componente1.getOpciones());
                             }else if(componente.getOpciones().equals("null")){
-                                return "Error en el componente: " + componente.getId() + " no hay OPCIONES";
+                                return "Error en el componente " + componente.getId() + ". no hay OPCIONES";
                             }
                             break;    
                         }
@@ -93,7 +93,7 @@ public class ComponenteFunctions {
                             if (!componente1.getUrl().equals("null")) {
                                 componente.setUrl(componente1.getUrl());
                             }else if(componente.getUrl().equals("null")){
-                                return "Error en el componente: " + componente.getId() + " no hay una URL";
+                                return "Error en el componente " + componente.getId() + ". no hay una URL";
                             }
                             break;    
                         }                        
@@ -145,12 +145,12 @@ public class ComponenteFunctions {
                         }
                     }
                 }
-                return "se modifico el componente: " + componente.getId() + " del formulario: " + form;
+                return "se modifico el componente " + componente.getId() + " del formulario " + form;
             }
             
         }
         
-        return "Error, no se modifico el componente: " + componente1.getId() + ", no se encontro en el formulario: " + form;
+        return "Error en la modificacion del componente " + componente1.getId() + ". No se encontro en el formulario " + form;
     }
 
     public List<Componente> getListaComponente() {

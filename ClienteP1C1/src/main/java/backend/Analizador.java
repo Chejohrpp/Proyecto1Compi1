@@ -11,38 +11,20 @@ import backend.funcionesObj.UsuarioModel;
 import backend.objetos.LosErrores;
 import backend.objetos.Parametro;
 import backend.reglasGram.LexerIndigo;
+import backend.reglasGram.LexerServidor;
 import backend.reglasGram.ParserIndigo;
-import backend.reglasGram.Token;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import backend.reglasGram.ParserServidor;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
-import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextArea;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -228,8 +210,10 @@ public class Analizador {
                 .build();        
         HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString());        
-        System.out.println(response.body());
-        JSONObject jsonRespuestas  = new JSONObject(response.body());        
+        //System.out.println(response.body());
+        getRespuestasServer(response.body());
+        
+        /*JSONObject jsonRespuestas  = new JSONObject(response.body());        
         try{
             JSONObject login = jsonRespuestas.getJSONObject("LOGIN_USUARIO");
             String userName = login.getString("USUARIO");
@@ -252,7 +236,7 @@ public class Analizador {
             }
         }catch(Exception e){
             System.out.println("Error en recibir las respuestas: " + e.getMessage());
-        }
+        }*/
     }
     
     public String getUserNameSesion(){
@@ -265,11 +249,50 @@ public class Analizador {
         return s;
     }
     
-    private void AddError(int index){
-        int linea = listaParametros.get(index).getKey().getLinea();
-        int colum = listaParametros.get(index).getKey().getColumna();
-        String lexema = listaParametros.get(index).getKey().getLexema();
-        errores.add(new LosErrores("Error: ( " + lexema +" ) -> { Linea: " + linea + ", columna: " + colum  + " }" ));
+    private void getRespuestasServer(String respuestas){
+        Reader inputString = new StringReader(respuestas);
+        BufferedReader reader = new BufferedReader(inputString);        
+        try{
+            LexerServidor lexer = new LexerServidor(reader);
+            ParserServidor parser = new ParserServidor(lexer);
+            try{
+                parser.parse();
+            }catch(Exception e){
+                System.out.println("error al parser las respuestas del servidor: " + e.getMessage());
+            }
+            List<Parametro> listaRespuestas = parser.getListaParametros();
+            for (Parametro listaRespuesta : listaRespuestas) {
+                try{
+                    if (listaRespuesta.getKey().getLexema().equals("USUARIO")) {
+                        String userName = listaRespuesta.getCont().getLexema();
+                        if (!userName.equals("null")) {
+                            userNameSesion = userName;
+                            formularioModel.setUserName(userNameSesion);
+                        }else{
+                            System.out.println("No hay usuario");
+                            userNameSesion = null;                
+                        }
+                    }else if(listaRespuesta.getKey().getLexema().equals("RESPUESTA")) {
+                        String respuesta = listaRespuesta.getCont().getLexema();
+                        txtRespuesta.setText(txtRespuesta.getText() +  respuesta + "\n");
+                    }
+                }catch(Exception e){
+                    System.out.println("error en el ciclo del servidor: " + e.getMessage());
+                }                
+            }
+            List<LosErrores> errores = parser.getListaErrores();
+            for (LosErrores errore : errores) {
+                System.out.println("error parser: " + errore.getMensaje());
+            }
+            List<LosErrores> erro = lexer.getErroresLexicos();
+            for (LosErrores errore : erro) {
+                System.out.println("error lexer: " + errore.getMensaje());
+            }
+            
+        }catch(Exception e){
+            System.out.println("error al lexer de las respuestas del servidor: " + e.getMessage());            
+        } 
+        
     }
     
     

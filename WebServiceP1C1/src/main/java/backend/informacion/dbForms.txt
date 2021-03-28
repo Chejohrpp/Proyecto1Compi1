@@ -60,10 +60,23 @@ db.formularios(
 "URL" : "null"
 }
 {
+"ID" : "$_img",
+"NOMBRE_CAMPO" : "null",
+"CLASE" : "IMAGEN",
+"INDICE" : "5",
+"TEXTO_VISIBLE" : "imagen",
+"ALINEACION" : "DERECHA",
+"REQUERIDO" : "SI",
+"OPCIONES" : "null",
+"FILAS" : "null",
+"COLUMNAS" : "null",
+"URL" : "https://www.w3schools.com/images/lamp.jpg"
+}
+{
 "ID" : "$_combo",
 "NOMBRE_CAMPO" : "selecciona",
 "CLASE" : "COMBO",
-"INDICE" : "5",
+"INDICE" : "6",
 "TEXTO_VISIBLE" : "selecciona algo",
 "ALINEACION" : "CENTRO",
 "REQUERIDO" : "SI",
@@ -71,19 +84,6 @@ db.formularios(
 "FILAS" : "null",
 "COLUMNAS" : "null",
 "URL" : "null"
-}
-{
-"ID" : "$_img",
-"NOMBRE_CAMPO" : "null",
-"CLASE" : "IMAGEN",
-"INDICE" : "6",
-"TEXTO_VISIBLE" : "imagen",
-"ALINEACION" : "CENTRO",
-"REQUERIDO" : "SI",
-"OPCIONES" : "null",
-"FILAS" : "5",
-"COLUMNAS" : "null",
-"URL" : "https://www.w3schools.com/images/lamp.jpg"
 }
 {
 "ID" : "$_radio",
@@ -285,9 +285,9 @@ db.formularios(
 )
 ]
 "FORMULARIO" : [
-"ID_FORMULARIO" : "-$form8",
-"TITULO" : "Formulario de un id mas grande",
-"NOMBRE" : "formulario_encuesta_3",
+"ID_FORMULARIO" : "$form9",
+"TITULO" : "Formulario de un id mas mas grande",
+"NOMBRE" : "formulario_encuesta_4",
 "TEMA" : "violet",
 "USUARIO_CREACION" : "admin",
 "FECHA_CREACION" : "2021-03-27",
@@ -297,12 +297,24 @@ db.formularios(
 )
 ]
 "FORMULARIO" : [
-"ID_FORMULARIO" : "$form9",
-"TITULO" : "Formulario de un id mas mas grande",
-"NOMBRE" : "formulario_encuesta_4",
+"ID_FORMULARIO" : "-$form10",
+"TITULO" : "Formulario de un id mas grande",
+"NOMBRE" : "formulario_encuesta_3",
 "TEMA" : "violet",
 "USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-27",
+"FECHA_CREACION" : "2021-03-28",
+"ESTRUCTURA" : (
+)
+"DATOS_RECOPILADOS" : (
+)
+]
+"FORMULARIO" : [
+"ID_FORMULARIO" : "$form99",
+"TITULO" : "Formulario de un id mas mas grande",
+"NOMBRE" : "formulario_encuesta_4",
+"TEMA" : "dark",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-28",
 "ESTRUCTURA" : (
 )
 "DATOS_RECOPILADOS" : (

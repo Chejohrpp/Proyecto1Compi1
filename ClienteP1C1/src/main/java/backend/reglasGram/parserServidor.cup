@@ -1,0 +1,147 @@
+/*codigo de usuario*/
+package backend.reglasGram;
+import backend.objetos.*;
+import java_cup.runtime.*;
+import backend.reglasGram.symServidor.*;
+import java.util.ArrayList;
+import java.util.List;
+
+
+parser code {:
+
+	private List<Parametro> listaParametros;
+	private List<LosErrores> listaErrores;
+
+	public ParserServidor(LexerServidor lex){
+		super(lex);
+		listaParametros = new ArrayList<Parametro>();
+		listaErrores = new ArrayList<LosErrores>();
+	}
+	public void syntax_error(Symbol cur_token){
+			String nombreSimbolo = symbl_name_from_id(cur_token.sym);
+            Token token = (Token) cur_token.value;
+			String msgError =  "Error: ( "+ token.getLexema() +" ) -> {Linea: "+cur_token.left+", Columna: "+ cur_token.right +" }" ;
+			listaErrores.add(new LosErrores(msgError));
+	}
+
+	public void report_fatal_error(String message, Object info){
+			String Elerror = "Error Irrecuperable: " + message + " -> {objeto: " + info + "}";
+			listaErrores.add(new LosErrores(Elerror));	
+	}
+
+	public List getListaParametros(){
+		return listaParametros;
+	}
+	public List getListaErrores(){
+		return listaErrores;
+	}
+
+	protected int error_sync_size(){
+		return 1;
+	}
+:}
+
+
+/*terminales*/
+terminal Token MENQ,ADMIRACION,INI_RESPUESTAS,INI_RESPUESTA,MAQ;
+terminal Token FIN_RESPUESTAS, DOS_PUNTOS,FIN_RESPUESTA;
+terminal Token LOGIN_USUARIO,RESPUESTA_SERVIDOR;
+terminal Token BLOQUE;
+terminal Token COMILLAS,USUARIO,RESPUESTA, STRING, LLAI, LLAD, CORI, CORD, COMA;
+
+/*non terminales*/
+non terminal Token inicio,sig_inicio,solicitudes;
+non terminal Token fin_respuestas,solicitud,sig_solicitud,fin_solicitud;
+non terminal Token contenido_usuario,contenido_respuesta,bloque,paquetes_usuario;
+non terminal Token paquetes_respuesta,bloques_usuario,bloques_respuesta,bloque_usuario;
+non terminal Token bloque_respuesta,parametros_usuario,parametros_respuesta,parametro_usuario;
+non terminal Token parametro_respuesta,usuario,respuesta,datos;
+
+/*precedencia*/
+
+/*gramatica*/
+
+inicio ::= 	MENQ ADMIRACION sig_inicio
+			|error sig_inicio
+			;
+sig_inicio ::= 	INI_RESPUESTAS MAQ solicitudes fin_respuestas
+				|INI_RESPUESTA DOS_PUNTOS COMILLAS sig_solicitud
+				|error 
+				;
+
+solicitudes ::= solicitudes solicitud
+				|solicitud
+				|error sig_solicitud
+				;
+
+fin_respuestas ::= MENQ ADMIRACION FIN_RESPUESTAS MAQ
+					|error
+					;
+
+solicitud ::= 	MENQ ADMIRACION INI_RESPUESTA DOS_PUNTOS COMILLAS sig_solicitud
+				;
+sig_solicitud ::= 	 LOGIN_USUARIO COMILLAS MAQ contenido_usuario fin_solicitud
+					|RESPUESTA_SERVIDOR COMILLAS MAQ contenido_respuesta fin_solicitud
+					|error fin_solicitud
+					;
+
+fin_solicitud ::= 	MENQ ADMIRACION FIN_RESPUESTA MAQ
+					|error
+					;
+
+contenido_usuario ::= 	LLAI bloque DOS_PUNTOS paquetes_usuario LLAD
+						|error paquetes_usuario LLAD
+						;
+contenido_respuesta ::=	LLAI bloque DOS_PUNTOS paquetes_respuesta LLAD
+						|error paquetes_respuesta LLAD
+						;
+
+bloque ::=	COMILLAS BLOQUE COMILLAS
+					|error
+					;
+paquetes_usuario ::= 	CORI bloques_usuario CORD
+						|error
+						;
+paquetes_respuesta ::= 	CORI bloques_respuesta CORD
+						|error
+						;
+
+bloques_usuario ::= bloques_usuario COMA bloque_usuario
+				|bloque_usuario
+				|error
+				;
+bloques_respuesta ::= bloques_respuesta COMA bloque_respuesta
+				|bloque_respuesta
+				|error
+				;
+
+bloque_usuario ::= 	LLAI parametros_usuario LLAD				
+					;
+bloque_respuesta ::= 	LLAI parametros_respuesta LLAD				
+					;
+
+parametros_usuario ::= 	parametros_usuario COMA parametro_usuario
+							|parametro_usuario
+							|error
+							;
+
+parametros_respuesta ::= 	parametros_respuesta COMA parametro_respuesta
+							|parametro_respuesta
+							|error
+							;
+
+parametro_usuario ::=	usuario:key DOS_PUNTOS datos:cont 					{:listaParametros.add(new Parametro(key,cont));:}
+						;
+
+parametro_respuesta ::=	respuesta:key DOS_PUNTOS datos:cont 				{:listaParametros.add(new Parametro(key,cont));:}
+						;					
+
+usuario ::= COMILLAS USUARIO:u COMILLAS									{:RESULT = u; :}
+			;
+
+respuesta ::=  COMILLAS RESPUESTA:u COMILLAS									{:RESULT = u; :}
+				;
+
+datos::=		COMILLAS STRING:s COMILLAS			{:RESULT = s; :}
+				|error
+				;
