@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+
+#Contenido{
+    margin: 2px;
+    padding-left: 25%;
+}
+
+.caja {
+    width: 1000px;
+    background: white;
+    /*background: #F9F1F0;
+    color: black;
+    /*top: 50%;
+    left: 30%;
+    position: relative;
+    /*transform: translate(-50%,2%);*/
+    box-sizing: border-box;
+    padding: 10px 40px;
+    font-family: 'Lexend', sans-serif;
+    font-size: 16px;
+    margin-left: 17%;
+    margin-top: 5%;
+    text-align: center;    
+}
+td,th{
+    padding: 10px 0;
+}

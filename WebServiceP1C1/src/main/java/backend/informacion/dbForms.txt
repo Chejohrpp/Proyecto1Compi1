@@ -212,4 +212,76 @@ db.formularios(
 "DATOS_RECOPILADOS" : (
 )
 ]
+"FORMULARIO" : [
+"ID_FORMULARIO" : "$form5",
+"TITULO" : "Formulario de un id mas grande",
+"NOMBRE" : "formulario_encuesta_3",
+"TEMA" : "violet",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-27",
+"ESTRUCTURA" : (
+)
+"DATOS_RECOPILADOS" : (
+)
+]
+"FORMULARIO" : [
+"ID_FORMULARIO" : "$form6_",
+"TITULO" : "Formulario de un id mas mas grande",
+"NOMBRE" : "formulario_encuesta_4",
+"TEMA" : "evergarden",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-27",
+"ESTRUCTURA" : (
+)
+"DATOS_RECOPILADOS" : (
+)
+]
+"FORMULARIO" : [
+"ID_FORMULARIO" : "$form8",
+"TITULO" : "Formulario de un id mas grande",
+"NOMBRE" : "formulario_encuesta_3",
+"TEMA" : "violet",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-27",
+"ESTRUCTURA" : (
+)
+"DATOS_RECOPILADOS" : (
+)
+]
+"FORMULARIO" : [
+"ID_FORMULARIO" : "$form7_",
+"TITULO" : "Formulario de un id mas mas grande",
+"NOMBRE" : "formulario_encuesta_4",
+"TEMA" : "dark",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-27",
+"ESTRUCTURA" : (
+)
+"DATOS_RECOPILADOS" : (
+)
+]
+"FORMULARIO" : [
+"ID_FORMULARIO" : "-$form8",
+"TITULO" : "Formulario de un id mas grande",
+"NOMBRE" : "formulario_encuesta_3",
+"TEMA" : "violet",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-27",
+"ESTRUCTURA" : (
+)
+"DATOS_RECOPILADOS" : (
+)
+]
+"FORMULARIO" : [
+"ID_FORMULARIO" : "$form9",
+"TITULO" : "Formulario de un id mas mas grande",
+"NOMBRE" : "formulario_encuesta_4",
+"TEMA" : "dark",
+"USUARIO_CREACION" : "admin",
+"FECHA_CREACION" : "2021-03-27",
+"ESTRUCTURA" : (
+)
+"DATOS_RECOPILADOS" : (
+)
+]
 )

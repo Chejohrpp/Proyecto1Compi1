@@ -193,9 +193,11 @@ public class conectionAPC extends HttpServlet {
                 boolean modificado = funUser.setUser(userOld, new Usuario(user,pass,null,fechaMod));
                 if (modificado) {
                     arrayRespuesta.put("Se modificaron los datos del usuario: " + userOld);
+                    funForm.modUserNameForm(userOld, user);
                     almacenamiento.setUsuarios(funUser.getListaUsuarios());
+                    almacenamiento.setForms(funForm.getListaForms());
                 }else{
-                    arrayRespuesta.put("Error, el usuario: " + userOld  + " no se modificaron sus datos");
+                    arrayRespuesta.put("Error, el usuario: " + userOld  + " no se modificaron sus datos, el USUARIO_NUEVO esta repetido");
                 }
             }
         }catch(Exception e){

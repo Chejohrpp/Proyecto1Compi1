@@ -31,7 +31,7 @@ public class UsuarioFunctions {
     }
     
     public Boolean setUser(String id, Usuario usuario){
-        if (userNameRepetido(usuario.getUserName(),1)) {
+        if (userNameRepetido(usuario.getUserName(),0)) {
             for (Usuario listaUsuario : listaUsuarios) {
                 if (listaUsuario.getUserName().equals(id)) {                    
                     listaUsuario.setPassword(usuario.getPassword());

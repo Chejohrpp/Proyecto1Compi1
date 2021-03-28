@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Formularios</title>
-        <link rel="styleSheet" href="estilos/estiloInicio.css">
+        <link rel="styleSheet" href="estilos/estiloAdmin/estiloShowForms.css">
     </head>
     <body>
          <%
@@ -21,23 +21,25 @@
             }
         %>        
         <%@include file="../barraNav.jsp" %>
-        <div class="caja">            
-            <div class="informacion">
-                <table>
-                <tr>
-                    <th>Formulario</th>
-                    <th>Link del formulario </th>
-                    <th>Exportar formulario</th>
-                </tr>
-                    <c:forEach items="${formularios}" var="solicitud">
-                        <tr>
-                            <td>${solicitud}</td>
-                            <td>http://localhost:8080/WebServiceP1C1/Formulario?id_form=${solicitud}</td>
-                            <td><a href="#">Exportar</a></td>                        
-                        </tr>
-                    </c:forEach>
-                </table>             
-            </div>           
+        <div id="contenido">
+            <div class="caja">            
+                <div class="informacion">
+                    <table>
+                    <tr>
+                        <th>Formulario</th>
+                        <th>Link del formulario </th>
+                        <th>Exportar formulario</th>
+                    </tr>
+                        <c:forEach items="${formularios}" var="solicitud">
+                            <tr>
+                                <td>${solicitud}</td>
+                                <td>http://localhost:8080/WebServiceP1C1/Formulario?id_form=${solicitud}</td>
+                                <td><a href="#" download="Estructura_Form_${solicitud}.txt">Exportar</a></td>                        
+                            </tr>
+                        </c:forEach>
+                    </table>             
+                </div>           
+            </div>
         </div>
     </body>
 </html>

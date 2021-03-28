@@ -36,6 +36,13 @@ public class FormularioFunctions {
         }        
         return false;
     }
+    public void modUserNameForm(String userOld, String userNew){
+        for (Formulario listaForm : listaForms) {
+            if (listaForm.getUsuarioCreacion().equals(userOld)) {
+                listaForm.setUsuarioCreacion(userNew);
+            }
+        }
+    }
     
     public boolean modForm(Formulario formulario){
         for (Formulario form : listaForms) {
