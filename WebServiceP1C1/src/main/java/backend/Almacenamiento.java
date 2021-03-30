@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,17 +31,30 @@ import java.util.logging.Logger;
 public class Almacenamiento {
     
     //paths absolutos, se tienen que cambiar a la hora de moverse de compu
-    private static final String PATH_FORMS = "D:\\DocumentosD\\NetBeans\\P1C1\\WebServiceP1C1\\src\\main\\java\\backend\\informacion\\dbForms.txt";
-    private static final String PATH_USERS = "D:\\DocumentosD\\NetBeans\\P1C1\\WebServiceP1C1\\src\\main\\java\\backend\\informacion\\dbUsers.txt";
-    
+    //private static final String PATH_FORMS = "D:\\DocumentosD\\NetBeans\\P1C1\\WebServiceP1C1\\src\\main\\java\\backend\\informacion\\dbForms.txt";
+    private static final String PATH_FORMS = getPath("dbForms.txt");
+    //private static final String PATH_USERS = "D:\\DocumentosD\\NetBeans\\P1C1\\WebServiceP1C1\\src\\main\\java\\backend\\informacion\\dbUsers.txt";
+    private static final String PATH_USERS = getPath("dbUsers.txt");
     
     public Almacenamiento(){
         
     }
+    private static String getPath(String document){
+        File file = new File(document);
+        System.out.println("path : "+file.getAbsolutePath());
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                
+            }
+        }
+        return file.getAbsolutePath();
+    }
     
     public List getUsuarios(){
         List<Usuario> listaUsuario =  new ArrayList<Usuario>();
-        //List<String> errores = new ArrayList();
+        //List<String> errores = new ArrayList();        
         try{
             BufferedReader bufer = new BufferedReader(new FileReader(PATH_USERS));
             try{
@@ -50,17 +64,17 @@ public class Almacenamiento {
                 try {
                     parse.parse();
                 } catch (Exception ex) {
-                 
+                 System.out.println("error en el parser: " + ex.getMessage());
                 }
                 listaUsuario = parse.getListaUsuarios();
                 //errores = parse.getListaErrores();
                 
             
             }catch(Exception e){
-               
+               System.out.println("error en el lexer: " + e.getMessage());
             }
         }catch(Exception e){           
-           
+            System.out.println("error en el buffer: " + e.getMessage());
         } 
         
         return listaUsuario;
@@ -104,10 +118,10 @@ public class Almacenamiento {
                     System.out.println("error en el parser " + ex.getMessage());
                 }
                 listaForms = parse.getListaFormularios(); 
-                errores = parse.getListaErrores();
-                for (String errore : errores) {
+                /*errores = parse.getListaErrores();
+                /*for (String errore : errores) {
                     System.out.println("errores: " + errore);
-             }
+                }*/
          }catch(Exception e){             
              System.out.println("error en el lexer: " + e.getMessage());
          }

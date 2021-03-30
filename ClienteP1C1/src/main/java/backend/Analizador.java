@@ -158,7 +158,7 @@ public class Analizador {
                     }
                 }catch(Exception e){
                     //errores.add(new LosErrores("Hubo un error al leer las listas: "  + e.getMessage()));
-                    System.out.println("Hubo un error al leer las listas: "  + e.getMessage());
+                    //System.out.println("Hubo un error al leer las listas: "  + e.getMessage());
                 }
             }
         }
@@ -245,7 +245,7 @@ public class Analizador {
                             userNameSesion = userName;
                             formularioModel.setUserName(userNameSesion);
                         }else{
-                            System.out.println("No hay usuario");
+                            //System.out.println("No hay usuario");
                             userNameSesion = null;                
                         }
                     }else if(listaRespuesta.getKey().getLexema().equals("RESPUESTA")) {
