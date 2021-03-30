@@ -3,7 +3,7 @@ db.formularios(
 "ID_FORMULARIO" : "$form1",
 "TITULO" : "Modificado para encuesta 1",
 "NOMBRE" : "formulario_encuesta_1_v2",
-"TEMA" : "dark",
+"TEMA" : "evergarden",
 "USUARIO_CREACION" : "admin",
 "FECHA_CREACION" : "2021-03-25",
 "ESTRUCTURA" : (
@@ -65,7 +65,7 @@ db.formularios(
 "CLASE" : "IMAGEN",
 "INDICE" : "5",
 "TEXTO_VISIBLE" : "imagen",
-"ALINEACION" : "IZQUIERDA",
+"ALINEACION" : "CENTRO",
 "REQUERIDO" : "SI",
 "OPCIONES" : "null",
 "FILAS" : "null",
@@ -222,199 +222,6 @@ db.formularios(
 "REGISTRO" : "jeje"
 "REGISTRO" : "jdljsljfld"
 }
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form2",
-"TITULO" : "Modificado para encuesta 1",
-"NOMBRE" : "formulario",
-"TEMA" : "dark",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-25",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form5",
-"TITULO" : "Formulario de un id mas grande",
-"NOMBRE" : "formulario_encuesta_3",
-"TEMA" : "violet",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-27",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form6_",
-"TITULO" : "Formulario de un id mas mas grande",
-"NOMBRE" : "formulario_encuesta_4",
-"TEMA" : "evergarden",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-27",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form8",
-"TITULO" : "Formulario de un id mas grande",
-"NOMBRE" : "formulario_encuesta_3",
-"TEMA" : "violet",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-27",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form7_",
-"TITULO" : "Formulario de un id mas mas grande",
-"NOMBRE" : "formulario_encuesta_4",
-"TEMA" : "dark",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-27",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form9",
-"TITULO" : "Formulario de un id mas mas grande",
-"NOMBRE" : "formulario_encuesta_4",
-"TEMA" : "violet",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-27",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "-$form10",
-"TITULO" : "Formulario de un id mas grande",
-"NOMBRE" : "formulario_encuesta_3",
-"TEMA" : "violet",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-28",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form99",
-"TITULO" : "Formulario de un id mas mas grande",
-"NOMBRE" : "formulario_encuesta_4",
-"TEMA" : "dark",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-28",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "-$form_p",
-"TITULO" : "Formulario de un id mas grande",
-"NOMBRE" : "formulario_encuesta_3",
-"TEMA" : "violet",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-28",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form-00",
-"TITULO" : "Formulario de un id mas mas grande",
-"NOMBRE" : "formulario_encuesta_4",
-"TEMA" : "dark",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-28",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "-$form8666",
-"TITULO" : "Formulario de un id mas grande",
-"NOMBRE" : "formulario_encuesta_3",
-"TEMA" : "violet",
-"USUARIO_CREACION" : "demaci-__-6",
-"FECHA_CREACION" : "2021-03-28",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$form966",
-"TITULO" : "Formulario de un id mas mas grande",
-"NOMBRE" : "formulario_encuesta_4",
-"TEMA" : "dark",
-"USUARIO_CREACION" : "demaci-__-6",
-"FECHA_CREACION" : "2021-03-28",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "-$formt",
-"TITULO" : "Formulario de un id mas grande",
-"NOMBRE" : "formulario_encuesta_3",
-"TEMA" : "violet",
-"USUARIO_CREACION" : "demaci-__-6",
-"FECHA_CREACION" : "2021-03-28",
-"ESTRUCTURA" : (
-{
-"ID" : "$_img_1",
-"NOMBRE_CAMPO" : "null",
-"CLASE" : "IMAGEN",
-"INDICE" : "1",
-"TEXTO_VISIBLE" : "imagen",
-"ALINEACION" : "CENTRO",
-"REQUERIDO" : "SI",
-"OPCIONES" : "null",
-"FILAS" : "null",
-"COLUMNAS" : "null",
-"URL" : "http://lineadecodigo.com/imagenes/logo.jpg"
-}
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "$formjgjg",
-"TITULO" : "Formulario de un id mas mas grande",
-"NOMBRE" : "formulario_encuesta_4",
-"TEMA" : "dark",
-"USUARIO_CREACION" : "demaci-__-6",
-"FECHA_CREACION" : "2021-03-28",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
-)
-]
-"FORMULARIO" : [
-"ID_FORMULARIO" : "-$form8",
-"TITULO" : "Formulario de un id mas grande",
-"NOMBRE" : "formulario_encuesta_3",
-"TEMA" : "violet",
-"USUARIO_CREACION" : "admin",
-"FECHA_CREACION" : "2021-03-29",
-"ESTRUCTURA" : (
-)
-"DATOS_RECOPILADOS" : (
 )
 ]
 )

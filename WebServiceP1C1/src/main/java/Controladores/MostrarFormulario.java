@@ -109,12 +109,12 @@ public class MostrarFormulario extends HttpServlet {
                 break;
             }
             case "AREA_TEXTO":{
-                out.println("<label >"+textoVisible+"</label>");               
-                out.println(" <textarea \" rows=\""+componente.getFilas()+"\" cols=\""+componente.getColumnas()+"\" name=\""+componente.getNombreCampo()+"\" "+requerido+" ></textarea>");                
+                out.println("<label>"+textoVisible+"</label>");               
+                out.println(" <textarea rows=\""+componente.getFilas()+"\" cols=\""+componente.getColumnas()+"\" name=\""+componente.getNombreCampo()+"\" "+requerido+" ></textarea>");                
                 break;
             }
             case "CHECKBOX":{
-                out.println("<label >"+textoVisible+"</label>");
+                out.println("<label>"+textoVisible+"</label>");
                 String[] opciones = opciones(componente.getOpciones());
                 for (String opcione : opciones) {
                     out.println(" <input type=\"checkbox\" name=\""+componente.getNombreCampo()+"\"  value=\""+opcione+"\" "+requerido+">");
@@ -123,8 +123,8 @@ public class MostrarFormulario extends HttpServlet {
                 break;
             }
             case "RADIO":{
-                out.println("<label \" >"+textoVisible+"</label>");
-                out.println("<div \" class=\"box\">");  
+                out.println("<label>"+textoVisible+"</label>");
+                out.println("<div class=\"box\">");  
                 String[] opciones = opciones(componente.getOpciones());
                 for (String opcione : opciones) {
                     out.println(" <input type=\"radio\" name=\""+componente.getNombreCampo()+"\"  value=\""+opcione+"\" "+requerido+" />"); 

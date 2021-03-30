@@ -1,36 +1,4 @@
 db.users{
  "USUARIO" : [
 { "USER" : "admin"},{ "PASS" : "admin"},{ "FECHA_CREACION" : "2021-03-20"},{ "FECHA_MODIFICACION" : "2021-03-27"}]
- "USUARIO" : [
-{ "USER" : "admin1"},{ "PASS" : "admin"},{ "FECHA_CREACION" : "2021-03-20"},{ "FECHA_MODIFICACION" : "2021-03-20"}]
- "USUARIO" : [
-{ "USER" : "admin2"},{ "PASS" : "admin1923"},{ "FECHA_CREACION" : "2021-03-23"},{ "FECHA_MODIFICACION" : "2021-03-24"}]
- "USUARIO" : [
-{ "USER" : "admin273"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-22"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "admi7n23"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-01"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "admin_100"},{ "PASS" : "admin1"},{ "FECHA_CREACION" : "2021-03-01"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "chejohrpp"},{ "PASS" : "admin123"},{ "FECHA_CREACION" : "2021-03-24"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "c"},{ "PASS" : "admin123"},{ "FECHA_CREACION" : "2021-03-24"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "juanito619"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "juanito22"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "juanito6"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "reksai619"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "sorieketon22"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "demaci6"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "demaci-6"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "demaci-__-6"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
- "USUARIO" : [
-{ "USER" : "sorieketon222"},{ "PASS" : "12345678"},{ "FECHA_CREACION" : "2021-03-28"},{ "FECHA_MODIFICACION" : "null"}]
 }

@@ -202,7 +202,7 @@ public class conectionAPC extends HttpServlet {
                     almacenamiento.setUsuarios(funUser.getListaUsuarios());
                     almacenamiento.setForms(funForm.getListaForms());
                 }else{
-                    arrayRespuesta.put("Error, el usuario: " + userOld  + " no se modificaron sus datos, el USUARIO_NUEVO esta repetido");
+                    arrayRespuesta.put("Error en el usuario " + userOld  + ". No se modificaron sus datos. El USUARIO_NUEVO esta repetido");
                 }
             }
         }catch(Exception e){
