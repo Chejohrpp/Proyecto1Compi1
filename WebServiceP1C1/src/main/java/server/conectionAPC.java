@@ -381,7 +381,7 @@ public class conectionAPC extends HttpServlet {
                         funForm.modListaComp(formulario);
                         almacenamiento.setForms(funForm.getListaForms());
                     }else{
-                        arrayRespuesta.put("Error en el componente : " + id + " no se logro eliminar");
+                        arrayRespuesta.put("Error en el componente " + id + ". No se logro eliminar");
                     }
 
                     break;

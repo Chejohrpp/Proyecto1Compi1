@@ -104,17 +104,17 @@ public class MostrarFormulario extends HttpServlet {
         String requerido = modRequerido(componente.getRequerido());
         switch(clase){
             case "CAMPO_TEXTO":{
-                out.println("<label>"+textoVisible+"</label>");
+                out.println("<label >"+textoVisible+"</label>");
                 out.println(" <input type=\"text\" name=\""+componente.getNombreCampo()+"\" "+requerido+" />");                
                 break;
             }
             case "AREA_TEXTO":{
-                out.println("<label>"+textoVisible+"</label>");               
-                out.println(" <textarea rows=\""+componente.getFilas()+"\" cols=\""+componente.getColumnas()+"\" name=\""+componente.getNombreCampo()+"\" "+requerido+" ></textarea>");                
+                out.println("<label >"+textoVisible+"</label>");               
+                out.println(" <textarea \" rows=\""+componente.getFilas()+"\" cols=\""+componente.getColumnas()+"\" name=\""+componente.getNombreCampo()+"\" "+requerido+" ></textarea>");                
                 break;
             }
             case "CHECKBOX":{
-                out.println("<label>"+textoVisible+"</label>");
+                out.println("<label >"+textoVisible+"</label>");
                 String[] opciones = opciones(componente.getOpciones());
                 for (String opcione : opciones) {
                     out.println(" <input type=\"checkbox\" name=\""+componente.getNombreCampo()+"\"  value=\""+opcione+"\" "+requerido+">");
@@ -123,8 +123,8 @@ public class MostrarFormulario extends HttpServlet {
                 break;
             }
             case "RADIO":{
-                out.println("<label>"+textoVisible+"</label>");
-                out.println("<div class=\"box\">");  
+                out.println("<label \" >"+textoVisible+"</label>");
+                out.println("<div \" class=\"box\">");  
                 String[] opciones = opciones(componente.getOpciones());
                 for (String opcione : opciones) {
                     out.println(" <input type=\"radio\" name=\""+componente.getNombreCampo()+"\"  value=\""+opcione+"\" "+requerido+" />"); 
@@ -134,20 +134,20 @@ public class MostrarFormulario extends HttpServlet {
                 break;
             }
             case "FICHERO":{
-                out.println("<label>"+textoVisible+"</label>");           
+                out.println("<label style=\" "+alineacion+" \">"+textoVisible+"</label>");           
                 out.println("<div class=\"box\">");           
-                out.println("<input type=\"file\" id=\"file-1\" name=\""+componente.getNombreCampo()+"\" class=\"inputfile inputfile-1\"  data-multiple-caption=\"{count} files selected\" multiple   "+requerido+"/>");                
-                out.println("<label for=\"file-1\" id=\"labelFile\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"17\" viewBox=\"0 0 20 17\"><path d=\"M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z\"/></svg> <span>Escoge un archivo&hellip;</span></label>");                
+                out.println("<input style=\" "+alineacion+" \" type=\"file\" id=\"file-1\" name=\""+componente.getNombreCampo()+"\" class=\"inputfile inputfile-1\"  data-multiple-caption=\"{count} files selected\" multiple   "+requerido+"/>");                
+                out.println("<label style=\" "+alineacion+" \" for=\"file-1\" id=\"labelFile\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"17\" viewBox=\"0 0 20 17\"><path d=\"M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z\"/></svg> <span>Escoge un archivo&hellip;</span></label>");                
                 out.println("</div>");
                 break;
             }
             case "IMAGEN":{
-                out.println("<label>"+textoVisible+"</label>");               
-                out.println(" <input type=\"image\" id=\"id_etiqueta\" src=\""+componente.getUrl()+"\" "+requerido+" />");                
+                out.println("<label style=\" "+alineacion+" \" >"+textoVisible+"</label>");               
+                out.println(" <img id=\"id_etiqueta\" src=\""+componente.getUrl()+"\" "+requerido+" width=\"250\" height=\"250\" style=\" "+alineacion+" \" >");                
                 break;
             }
             case "COMBO":{
-                out.println("<label>"+textoVisible+"</label>");                
+                out.println("<label >"+textoVisible+"</label>");                
                 out.println("<select name=\""+componente.getNombreCampo()+"\" "+requerido+" >");
                 String[] opciones = opciones(componente.getOpciones());
                 for (String opcione : opciones) {
@@ -164,11 +164,16 @@ public class MostrarFormulario extends HttpServlet {
     }
     
     private String modAlineacion(String alineacion){
-        if (alineacion.equals("IZQUIERDA")) {
-            return "left";
+        if (alineacion.equals("IZQUIERDA") || alineacion.equals("JUSTIFICAR")) {
+            return "";
         }
-        
-        return null;
+        if (alineacion.equals("CENTRO")) {
+            return "margin-left:30%";
+        }
+        if (alineacion.equals("DERECHA")){
+            return "margin-left:61%";
+        }        
+        return "";
     }
     private String modRequerido(String requerido){
         if (requerido.equalsIgnoreCase("SI")) {
