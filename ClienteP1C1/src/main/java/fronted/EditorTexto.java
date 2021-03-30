@@ -10,20 +10,15 @@ import backend.toolsFronted.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Action;
-import javax.swing.JTextArea;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.text.BadLocationException;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.Utilities;
 
 /**
  *
  * @author sergi
  */
 public class EditorTexto extends javax.swing.JFrame {
-    NumeroLinea numeroLinea;
     ArchivosOpciones archivoOpciones;
     private String userNameSesion=null;
     /**
@@ -31,8 +26,25 @@ public class EditorTexto extends javax.swing.JFrame {
      */
     public EditorTexto() {
         initComponents();
-        numeroLinea = new NumeroLinea(jTextEditor);
-        jScrollPane1.setRowHeaderView(numeroLinea);
+        LineNumberTextArea lineNumber = new LineNumberTextArea(jTextEditor);
+        jScrollPane1.setRowHeaderView(lineNumber);
+        jTextEditor.getDocument().addDocumentListener(new DocumentListener(){
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                lineNumber.updateLineNumbers();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                lineNumber.updateLineNumbers();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                lineNumber.updateLineNumbers();
+            }
+            
+        });
         txtLineaColumna.setEnabled(false);
         LineaColumna lineaColumna = new LineaColumna(jTextEditor, txtLineaColumna);
         lineaColumna.actualizar();
