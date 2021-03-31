@@ -40,11 +40,37 @@ public class Almacenamiento {
         
     }
     private static String getPath(String document){
-        File file = new File(document);
-        System.out.println("path : "+file.getAbsolutePath());
+        File file = new File(document);        
         if (!file.exists()) {
             try {
                 file.createNewFile();
+                System.out.println("path : "+file.getAbsolutePath());
+                if (document.equals("dbUsers.txt")) {
+                    Usuario user = new Usuario("admin","admin","null","null");
+                    List<Usuario> lista = new ArrayList();
+                    lista.add(user);
+                    FileWriter fileWriter = null;
+                    try {
+                        String usuarios = "db.users{\n";
+                        for (Usuario usuario : lista) {
+                            usuarios += " \"USUARIO\" : [\n";
+                            usuarios += "{ \"USER\" : \"" +  usuario.getUserName()+"\"},";
+                            usuarios += "{ \"PASS\" : \"" +  usuario.getPassword() +"\"},";
+                            usuarios += "{ \"FECHA_CREACION\" : \"" +  usuario.getFechaCreacion() +"\"},";
+                            usuarios += "{ \"FECHA_MODIFICACION\" : \"" +  usuario.getFechaModificación() +"\"}";
+                            usuarios += "]\n";
+                        }   usuarios += "}";
+                        fileWriter = new FileWriter(file.getAbsolutePath());
+                        fileWriter.write(usuarios);
+                    } catch (IOException ex) {
+                    } finally {
+                        try {
+                            fileWriter.close();
+                        } catch (IOException ex) {
+                            Logger.getLogger(Almacenamiento.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
             } catch (IOException ex) {
                 
             }

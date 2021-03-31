@@ -45,6 +45,7 @@
     </dependencies>
 
     <build>
+        <finalName>WebServiceP1C1</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
