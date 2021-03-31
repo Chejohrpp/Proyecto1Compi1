@@ -16,9 +16,13 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
               <mainClass>backend.Principal</mainClass>
             </manifest>
           </archive>
+          <descriptorRefs>
+          <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
         </configuration>
       </plugin>
         </plugins>
